@@ -84,4 +84,21 @@ map2_chr(match_text, capture_text, ~sprintf(.x, .y)) %>%
 
 
 
+str <- "test test"
+match_text <- regexpr("t(es)(t)", str, perl=TRUE)
+[[1]] %>% 
+  as.character() %>% 
+  unique()
 
+replacements <- paste0("<font style='color:",
+                       colors[1:length(match_text)],"'>",
+                       match_text,
+                       "</font>")
+
+out_str <- str
+for(i in 1:length(match_text)) {
+  out_str <- str_replace_all(str, match_text[i], replacements[i])
+}
+out_str
+
+map2_chr(match_text, replacements, ~str_replace_all(str, .x, .y))

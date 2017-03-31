@@ -1,5 +1,0 @@
-shinyUI(
-  fluidPage(
-    
-  )#fluidPage
-)#shinyui
