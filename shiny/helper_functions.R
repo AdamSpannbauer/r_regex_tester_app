@@ -192,14 +192,14 @@ highlight_test_str <- function(str, pattern, environ="base", ignore_case=TRUE, g
               match_df$in_match_cap_end[[.x]][i]+buffer) <- "%s"
       replacement <- paste0("<font style='color:",colors[1+i],"'>",match_df$capture_text[[.x]][i],"</font>")
       txt <- sprintf(txt, replacement)
-      buffer <- nchar(replacement)-nchar(match_df$capture_text[[.x]][i])
+      buffer <- buffer + nchar(replacement)-nchar(match_df$capture_text[[.x]][i])
     }
     paste0("<font style='color:",colors[1],"'>",txt,"</font>")
   })
   
   match_df <- match_df %>% 
-    unnest() %>% 
     dplyr::select(match_ind, match, replacements, match_start, match_end) %>% 
+    unnest() %>% 
     distinct()
   
   txt <- str
@@ -209,7 +209,7 @@ highlight_test_str <- function(str, pattern, environ="base", ignore_case=TRUE, g
             match_df$match_start[i]+buffer,
             match_df$match_end[i]+buffer) <- "%s"
     txt <- sprintf(txt, match_df$replacements[i])
-    buffer <- nchar(match_df$replacements[i]) - nchar(match_df$match[i])
+    buffer <- buffer + nchar(match_df$replacements[i]) - nchar(match_df$match[i])
   }
   
   txt
