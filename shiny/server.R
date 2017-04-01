@@ -2,12 +2,15 @@ shinyServer(function(input, output, session){
   
   match_list <- reactive({
     req(input$pattern, input$test_str)
+    test <<- input$pattern
+    
+    pattern <- half_slashes(input$pattern)
     
     ignore_case_log <- "ignore_case" %in% input$additional_params
     global_log      <- "global" %in% input$additional_params
     perl_log        <- "perl" %in% input$additional_params
     
-    get_match_list(input$test_str, input$pattern, input$environ, 
+    get_match_list(input$test_str, pattern, input$environ, 
                    ignore_case_log, global_log, perl_log)
   })
   
@@ -21,7 +24,7 @@ shinyServer(function(input, output, session){
       out <- HTML("no matches found")
     }
     
-    out
+    wellPanel(out)
   })
   
 })#shinyServer

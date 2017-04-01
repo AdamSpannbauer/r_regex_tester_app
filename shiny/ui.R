@@ -10,6 +10,6 @@ shinyUI(
                                    "Global"="global",
                                    "Perl*"="perl"),
                        selected = c("ignore_case","global","perl")),
-    wellPanel(uiOutput("match_list_html"))
+    uiOutput("match_list_html")
   )#fluidPage
 )#shinyui

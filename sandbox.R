@@ -102,3 +102,35 @@ for(i in 1:length(match_text)) {
 out_str
 
 map2_chr(match_text, replacements, ~str_replace_all(str, .x, .y))
+
+test <- "\\w"
+
+half_slash <- str_replace(deparse(test), regex("\\\\"), regex("\\"))
+eval(parse(text=half_slash))
+
+tmp <- tempfile()
+writeLines(test, tmp)
+scan(tmp, allowEscapes = F, what = "character")
+
+
+half_slash <- function(){}
+
+pattern <- "\\\\w"
+pattern <- "\\w test\\\\w"
+
+deparsed <- deparse(pattern)
+
+half_df <- str_match_all(deparsed, "(\\\\+)(.)")[[1]] %>% 
+  as_data_frame() %>% 
+  set_names(c("match","slash_cap","char_cap")) %>% 
+  mutate(half_slash = str_sub(slash_cap, end=(nchar(slash_cap)/2))) %>%
+  mutate(out = paste0(half_slash, char_cap)) %>% 
+  distinct() %>% 
+  arrange(nchar(out))
+
+halfed_deparse <- qdap::mgsub(half_df$match, 
+                              half_df$out, 
+                              deparsed, 
+                              order.pattern = FALSE)
+
+eval(parse(text=halfed_deparse))

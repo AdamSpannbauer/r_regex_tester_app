@@ -12,6 +12,26 @@
 #                input$ignore_case, input$global, input$perl) %>% 
 #   html_format_match_list()
 
+half_slashes <- function(str) {
+  deparsed <- deparse(str)
+  
+  half_df <- stringr::str_match_all(deparsed, "(\\\\+)(.)")[[1]] %>% 
+    dplyr::as_data_frame() %>% 
+    purrr::set_names(c("match","slash_cap","char_cap")) %>% 
+    dplyr::mutate(half_slash = stringr::str_sub(slash_cap, 
+                                                end=(nchar(slash_cap)/2))) %>%
+    dplyr::mutate(out = paste0(half_slash, char_cap)) %>% 
+    dplyr::distinct() %>% 
+    dplyr::arrange(nchar(out))
+  
+  halfed_deparse <- qdap::mgsub(half_df$match, 
+                                half_df$out, 
+                                deparsed, 
+                                order.pattern = FALSE)
+  
+  eval(parse(text=halfed_deparse))
+}
+
 #function to match text using 
 get_match_list <- function(str, pattern, environ="base", ignore_case=TRUE, global=TRUE, perl=TRUE, fixed=FALSE) {
   if (environ == "stringr") {
