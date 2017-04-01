@@ -134,3 +134,91 @@ halfed_deparse <- qdap::mgsub(half_df$match,
                               order.pattern = FALSE)
 
 eval(parse(text=halfed_deparse))
+
+
+
+
+str <- "test testing"
+pattern <- "t(es)(t)"
+color_palette <- "Set2"
+suppressWarnings(colors <- RColorBrewer::brewer.pal(nchar(str), color_palette))
+match_list <- get_match_list(str,pattern)
+if(!is.null(match_list)) {
+  match_mat <- do.call(rbind, match_list)
+  
+  match_df <- bind_cols(data_frame(pattern=pattern,
+                                   match = rownames(match_mat)),
+            as_data_frame(match_mat)) %>% 
+    distinct()
+  
+  replacements <- apply(match_df, 1, function(.x){
+    captures <- length(.x) - 2
+    
+    paste0("<font style='color:",
+           colors[2:(captures+1)],
+           ">\\",1:captures,"</font>") %>% 
+      paste(collapse="")
+    
+    paste0("<font style='color:",
+           colors[1:length(.x)],
+           "'>", .x,"</font>")
+    }) %>% 
+    as.character()
+  
+  ncol(match_df)-1
+  
+  mgsub(as.character(match_df[1,]), replacements, match_df$match)
+}
+
+highlight_patterns <- c(names(match_list), unlist(match_list)) %>% 
+  unique()
+highlight_replacements <- paste0("<font style='color:",
+                                 colors[1:length(highlight_patterns)],
+                                 "'>", highlight_patterns,"</font>")
+mgsub(highlight_patterns, highlight_replacements, str)
+
+
+if(matches_raw==-1) return(NULL)
+matches_raw <- gregexpr(pattern,str,perl=T)[[1]]
+
+matches <- regmatches(rep(str, length(matches_raw)),
+                      matches_raw)
+
+match_end      <- matches_raw + attr(matches_raw, "match.length")
+capture_start  <- attr(matches_raw, "capture.start")
+capture_length <- attr(matches_raw, "capture.length")-1
+capture_end    <- capture_start + capture_length
+
+match_df <- data.frame(match_ind     = rep(c(1:length(matches)), ncol(capture_end)),
+                       match         = rep(matches, ncol(capture_end)),
+                       match_start   = rep(matches_raw, ncol(capture_end)),
+                       match_end     = rep(match_end, ncol(capture_end)),
+                       capture_ind   = rep(1:ncol(capture_end), each=ncol(capture_end)),
+                       capture_start = as.numeric(capture_start),
+                       capture_end   = as.numeric(capture_end),
+                       stringsAsFactors = FALSE) %>% 
+  dplyr::as_data_frame() %>% 
+  dplyr::arrange(match_ind, capture_start) %>% 
+  dplyr::mutate(capture_text = stringr::str_sub(str, capture_start, capture_end)) %>% 
+  dplyr::mutate(in_match_cap_start = capture_start-(match_start-1)) %>% 
+  dplyr::mutate(in_match_cap_end   = capture_end-(match_start-1)) %>% 
+  dplyr::select(match, capture_text, in_match_cap_start, in_match_cap_end) %>% 
+  dplyr::distinct() %>% 
+  dplyr::group_by(match) %>% 
+  dplyr::summarise_all(list)
+
+map(1:nrow(match_df), function(.x){
+  txt <- match_df$match
+  buffer <- 0
+  for (i in 1:length(match_df$in_match_cap_start[[.x]])) {
+    str_sub(txt, 
+            match_df$in_match_cap_start[[.x]][i]+buffer,
+            match_df$in_match_cap_end[[.x]][i]+buffer) <- "%s"
+    replacement <- paste0("<font style='color:",colors[1+i],"'>",match_df$capture_text[[1]][i],"</font>")
+    txt <- sprintf(txt, replacement)
+    buffer <- nchar(replacement) - nchar(match_df$capture_text[[.x]][i])
+  }
+  paste0("<font style='color:",colors[1],"'>",txt,"</font>")
+})
+
+testmatch_df$in_match_cap_start

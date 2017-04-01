@@ -1,9 +1,8 @@
 options(shiny.trace=TRUE)
-
 library(shiny)
 library(stringr)
 library(dplyr)
 library(purrr)
 library(qdap)
-
 source("helper_functions.R")
+safe_slashes <- dplyr::failwith(NULL, half_slashes, TRUE)

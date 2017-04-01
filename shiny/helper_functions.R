@@ -34,27 +34,35 @@ half_slashes <- function(str) {
 
 #function to match text using 
 get_match_list <- function(str, pattern, environ="base", ignore_case=TRUE, global=TRUE, perl=TRUE, fixed=FALSE) {
-  if (environ == "stringr") {
-    if(fixed) {
-      reg <- stringr::fixed(pattern, ignore_case = ignore_case)
-    } else {
-      reg <- stringr::regex(pattern, ignore_case = ignore_case)
-    }
-    
-    if(global) {
-      match_mat  <- stringr::str_match_all(str, reg)[[1]]
-    } else {
-      match_mat  <- stringr::str_match(str, reg)
-    }
-    
-    if(nrow(match_mat) == 0) return(NULL)
-    
-    match_list <- purrr::map(1:nrow(match_mat), ~match_mat[.x,-1]) %>% 
-      purrr::set_names(match_mat[,1])
-  } else if (environ == "base") {
+  # if (environ == "stringr") {
+  #   if(fixed) {
+  #     reg <- stringr::fixed(pattern, ignore_case = ignore_case)
+  #     if(global){
+  #       matches <- str_extract_all(str,reg)[[1]]
+  #     }else{
+  #       matches <- str_extract(str,reg)
+  #     }
+  #     if(length(matches)==0) return(NULL)
+  #     match_list <- vector("list",length(matches)) %>% 
+  #       purrr::set_names(matches)
+  #   } else {
+  #     reg <- stringr::regex(pattern, ignore_case = ignore_case)
+  #     if(global) {
+  #       match_mat  <- stringr::str_match_all(str, reg)[[1]]
+  #     } else {
+  #       match_mat  <- stringr::str_match(str, reg)
+  #     }
+  #     
+  #     if(nrow(match_mat) == 0) return(NULL)
+  #     
+  #     match_list <- purrr::map(1:nrow(match_mat), ~match_mat[.x,-1]) %>% 
+  #       purrr::set_names(match_mat[,1])
+  #   }
+  # } else if (environ == "base") {
     if(global) {
       matches_raw <- gregexpr(pattern, 
                               str,
+                              fixed = fixed,
                               perl = perl,
                               ignore.case = ignore_case)[[1]]
       
@@ -65,6 +73,7 @@ get_match_list <- function(str, pattern, environ="base", ignore_case=TRUE, globa
     } else {
       matches_raw <- regexpr(pattern, 
                              str,
+                             fixed = fixed,
                              perl = perl,
                              ignore.case = ignore_case)
       
@@ -94,7 +103,7 @@ get_match_list <- function(str, pattern, environ="base", ignore_case=TRUE, globa
       match_list <- purrr::map(1:length(matches), ~character(0)) %>% 
         purrr::set_names(matches)
     }
-  }
+  # }
   
   match_list
 }
@@ -122,3 +131,87 @@ html_format_match_list <- function(match_list, color_palette="Set2") {
     paste0(collapse="</li><br><li>") %>% 
     paste0("<h4>Matched & Captured Text</h4><ol><li>",.,"</li></ol>")
 }
+
+
+highlight_test_str <- function(str, pattern, environ="base", ignore_case=TRUE, global=TRUE, perl=TRUE, fixed=FALSE,color_palette="Set2"){
+  suppressWarnings(colors <- RColorBrewer::brewer.pal(100, color_palette))
+  if(global) {
+    matches_raw <- gregexpr(pattern, 
+                            str,
+                            fixed = fixed,
+                            perl = perl,
+                            ignore.case = ignore_case)[[1]]
+    
+    if(matches_raw==-1) return(NULL)
+    
+    matches <- regmatches(rep(str, length(matches_raw)),
+                          matches_raw)
+  } else {
+    matches_raw <- regexpr(pattern, 
+                           str,
+                           fixed = fixed,
+                           perl = perl,
+                           ignore.case = ignore_case)
+    
+    if(matches_raw==-1) return(NULL)
+    
+    matches <- regmatches(str, matches_raw)[[1]]
+  }
+  
+  match_end      <- matches_raw + attr(matches_raw, "match.length") - 1
+  capture_start  <- attr(matches_raw, "capture.start")
+  capture_length <- attr(matches_raw, "capture.length")-1
+  capture_end    <- capture_start + capture_length
+  
+  match_df <- data.frame(match_ind     = rep(c(1:length(matches)), ncol(capture_end)),
+                         match         = rep(matches, ncol(capture_end)),
+                         match_start   = rep(matches_raw, ncol(capture_end)),
+                         match_end     = rep(match_end, ncol(capture_end)),
+                         capture_ind   = rep(1:ncol(capture_end), each=ncol(capture_end)),
+                         capture_start = as.numeric(capture_start),
+                         capture_end   = as.numeric(capture_end),
+                         stringsAsFactors = FALSE) %>% 
+    dplyr::as_data_frame() %>% 
+    dplyr::arrange(match_ind, capture_start) %>% 
+    dplyr::mutate(capture_text = stringr::str_sub(str, capture_start, capture_end)) %>% 
+    dplyr::mutate(in_match_cap_start = capture_start-(match_start-1)) %>% 
+    dplyr::mutate(in_match_cap_end   = capture_end-(match_start-1)) %>% 
+    dplyr::select(match, match_ind, match_start, match_end, capture_text, in_match_cap_start, in_match_cap_end) %>% 
+    dplyr::distinct() %>% 
+    dplyr::group_by(match) %>% 
+    dplyr::summarise_all(function(...) list(unique(...))) %>% 
+    dplyr::ungroup()
+  
+  match_df$replacements <- map_chr(1:nrow(match_df), function(.x){
+    txt <- match_df$match
+    buffer <- 0
+    for (i in 1:length(match_df$in_match_cap_start[[.x]])) {
+      cat(txt,"\n")
+      str_sub(txt, 
+              match_df$in_match_cap_start[[.x]][i]+buffer,
+              match_df$in_match_cap_end[[.x]][i]+buffer) <- "%s"
+      replacement <- paste0("<font style='color:",colors[1+i],"'>",match_df$capture_text[[.x]][i],"</font>")
+      txt <- sprintf(txt, replacement)
+      buffer <- nchar(replacement)-nchar(match_df$capture_text[[.x]][i])
+    }
+    paste0("<font style='color:",colors[1],"'>",txt,"</font>")
+  })
+  
+  match_df <- match_df %>% 
+    unnest() %>% 
+    dplyr::select(match_ind, match, replacements, match_start, match_end) %>% 
+    distinct()
+  
+  txt <- str
+  buffer <- 0
+  for (i in 1:nrow(match_df)) {
+    str_sub(txt, 
+            match_df$match_start[i]+buffer,
+            match_df$match_end[i]+buffer) <- "%s"
+    txt <- sprintf(txt, match_df$replacements[i])
+    buffer <- nchar(match_df$replacements[i]) - nchar(match_df$match[i])
+  }
+  
+  txt
+}
+
