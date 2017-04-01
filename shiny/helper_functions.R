@@ -186,7 +186,6 @@ highlight_test_str <- function(str, pattern, environ="base", ignore_case=TRUE, g
     txt <- match_df$match
     buffer <- 0
     for (i in 1:length(match_df$in_match_cap_start[[.x]])) {
-      cat(txt,"\n")
       str_sub(txt, 
               match_df$in_match_cap_start[[.x]][i]+buffer,
               match_df$in_match_cap_end[[.x]][i]+buffer) <- "%s"
