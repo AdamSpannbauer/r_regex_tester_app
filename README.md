@@ -1,2 +1,12 @@
-# r_regex_tester_app
-Shiny Application to test regular expressions in R for base (gsub, grepl, etc.) and stringr (str_replace, str_detect, etc.)
+# R Regex Tester Shiny Application
+
+A Shiny application written to test regular expressions in the R environment.  
+
+
+To use:
+
+   * Online: visit the application live on [shinyapps.io](shinyapps.io).
+   * Local: clone this repo and run the shiny app using R Studio.
+
+<p align="center"><img align="center" height="300" src="r_regex_app_screenshot.png">
+</p>

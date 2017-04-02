@@ -1,22 +1,24 @@
 shinyServer(function(input, output, session){
   
+  observe(test <<- input$auto_escape_check_group)
+  
   bad_slash <- reactive({
-    (!input$escape_slashes_pattern & is.null(safe_slashes(input$pattern))) |
-      (!input$escape_slashes_test_str & is.null(safe_slashes(input$test_str)))
+    (!("pattern" %in% input$auto_escape_check_group) & is.null(safe_slashes(input$pattern))) |
+      (!("test_str" %in% input$auto_escape_check_group) & is.null(safe_slashes(input$test_str)))
   })
   
   pattern <- reactive({
-    req(input$pattern, !is.null(input$escape_slashes_pattern))
+    req(input$pattern)
     
-    ifelse(input$escape_slashes_pattern, 
+    ifelse("pattern" %in% input$auto_escape_check_group, 
            input$pattern, 
            safe_slashes(input$pattern))
   })
   
   test_str <- reactive({
-    req(input$test_str, !is.null(input$escape_slashes_test_str))
+    req(input$test_str)
     
-    ifelse(input$escape_slashes_test_str, 
+    ifelse("test_str" %in% input$auto_escape_check_group, 
            input$test_str, 
            safe_slashes(input$test_str))
   })
@@ -44,7 +46,7 @@ shinyServer(function(input, output, session){
     if (is.null(out)) {
       HTML("")
     } else {
-      HTML(paste0("<div style='overflow: auto'><h3>", out, "</h3><div>"))
+      HTML(paste0("<div style = 'overflow-y:scroll; max-height: 300px'><h3>", out, "</h3><div><br>"))
     }
   })
   
@@ -57,12 +59,12 @@ shinyServer(function(input, output, session){
                     "escape backslashes option isn't selected.</font>")
     }
     if(is.null(out)) {
-      out <- HTML("No matches")
+      out <- HTML("<h4>No matches found in Test String</h4>")
     } else {
       out <- HTML(out)
     }
       
-    wellPanel(out)
+    wellPanel(out, style = 'background-color: #ffffff; overflow-y:scroll; max-height: 500px')
   })
   
 })#shinyServer

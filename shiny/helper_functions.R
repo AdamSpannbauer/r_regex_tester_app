@@ -66,7 +66,7 @@ get_match_list <- function(str, pattern, environ="base", ignore_case=TRUE, globa
                               perl = perl,
                               ignore.case = ignore_case)[[1]]
       
-      if(matches_raw==-1) return(NULL)
+      suppressWarnings(if(matches_raw==-1) return(NULL))
       
       matches <- regmatches(rep(str, length(matches_raw)),
                             matches_raw)
@@ -142,7 +142,7 @@ highlight_test_str <- function(str, pattern, environ="base", ignore_case=TRUE, g
                             perl = perl,
                             ignore.case = ignore_case)[[1]]
     
-    if(matches_raw==-1) return(NULL)
+    suppressWarnings(if(matches_raw==-1) return(NULL))
     
     matches <- regmatches(rep(str, length(matches_raw)),
                           matches_raw)
@@ -153,7 +153,7 @@ highlight_test_str <- function(str, pattern, environ="base", ignore_case=TRUE, g
                            perl = perl,
                            ignore.case = ignore_case)
     
-    if(matches_raw==-1) return(NULL)
+    suppressWarnings(if(matches_raw==-1) return(NULL))
     
     matches <- regmatches(str, matches_raw)[[1]]
   }
