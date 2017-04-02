@@ -1,6 +1,11 @@
 shinyUI(
   navbarPage("R regex",
              theme=shinythemes::shinytheme("cosmo"),
+             # tags$head('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css" />
+             #            <!--[if lt IE 9]>
+             #                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.ie.min.css" />
+             #            <![endif]-->'),
+             # tags$body('<a class="github-fork-ribbon" href="https://github.com/AdamSpannbauer/r_regex_tester_app" title="Fork me on GitHub">Fork me on GitHub</a>'),
              tabPanel("Test Regex",
                       fluidRow(
                         column(width=12, align="left",
@@ -32,6 +37,8 @@ shinyUI(
                         ),
                       hr(),
                       br(),
+                      br(),
+                      br(),
                           fluidRow(
                             column(width=12, align="center",
                                    HTML(paste0("<h4>When in Doubt</h4> ",
@@ -51,6 +58,9 @@ shinyUI(
              tabPanel("Regular Expressions as used in R",
                       readr::read_lines("www/regex_documentation.txt") %>% 
                         HTML()
-                      )
+                      ),
+             tags$script(HTML("var header = $('.navbar > .container');
+                              header.append('<div style=\"float:right\"><h3 style='color:white'>Company name text here</h3></div>');
+                              console.log(header)"))
              )#navbarpage  
 )#shinyui

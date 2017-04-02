@@ -111,15 +111,15 @@ get_match_list <- function(str, pattern, environ="base", ignore_case=TRUE, globa
 html_format_match_list <- function(match_list, color_palette="Set2") {
   suppressWarnings(colors <- RColorBrewer::brewer.pal(100, color_palette))
   
-  match_text <- paste0("<font style='color:", colors[1],"'>",
+  match_text <- paste0("<span style='background-color:", colors[1],"'>",
                        names(match_list),
-                       "</font>%s")
+                       "</span>%s")
   capture_text <- purrr::map_chr(match_list, function(.x){
     if (length(.x) > 0) {
       x_colors <- colors[2:(length(.x)+1)]
-      paste0("<li><font style='color:", x_colors,"'>",
+      paste0("<li><span style='background-color:", x_colors,"'>",
              .x,
-             "</font></li>") %>% 
+             "</span></li>") %>% 
         paste(collapse="<br>") %>% 
         paste("<ul>", .,"</ul>")
     } else {
@@ -133,7 +133,7 @@ html_format_match_list <- function(match_list, color_palette="Set2") {
 }
 
 
-highlight_test_str <- function(str, pattern, environ="base", ignore_case=TRUE, global=TRUE, perl=TRUE, fixed=FALSE,color_palette="Set2"){
+highlight_test_str <- function(str, pattern, environ="base", ignore_case=TRUE, global=TRUE, perl=TRUE, fixed=FALSE, color_palette="Set2"){
   suppressWarnings(colors <- RColorBrewer::brewer.pal(100, color_palette))
   if(global) {
     matches_raw <- gregexpr(pattern, 
@@ -158,48 +158,61 @@ highlight_test_str <- function(str, pattern, environ="base", ignore_case=TRUE, g
     matches <- regmatches(str, matches_raw)[[1]]
   }
   
-  match_end      <- matches_raw + attr(matches_raw, "match.length") - 1
-  capture_start  <- attr(matches_raw, "capture.start")
-  capture_length <- attr(matches_raw, "capture.length")-1
-  capture_end    <- capture_start + capture_length
-  
-  match_df <- data.frame(match_ind     = rep(c(1:length(matches)), ncol(capture_end)),
-                         match         = rep(matches, ncol(capture_end)),
-                         match_start   = rep(matches_raw, ncol(capture_end)),
-                         match_end     = rep(match_end, ncol(capture_end)),
-                         capture_ind   = rep(1:ncol(capture_end), each=ncol(capture_end)),
-                         capture_start = as.numeric(capture_start),
-                         capture_end   = as.numeric(capture_end),
-                         stringsAsFactors = FALSE) %>% 
-    dplyr::as_data_frame() %>% 
-    dplyr::arrange(match_ind, capture_start) %>% 
-    dplyr::mutate(capture_text = stringr::str_sub(str, capture_start, capture_end)) %>% 
-    dplyr::mutate(in_match_cap_start = capture_start-(match_start-1)) %>% 
-    dplyr::mutate(in_match_cap_end   = capture_end-(match_start-1)) %>% 
-    dplyr::select(match, match_ind, match_start, match_end, capture_text, in_match_cap_start, in_match_cap_end) %>% 
-    dplyr::distinct() %>% 
-    dplyr::group_by(match) %>% 
-    dplyr::summarise_all(function(...) list(unique(...))) %>% 
-    dplyr::ungroup()
-  
-  match_df$replacements <- map_chr(1:nrow(match_df), function(.x){
-    txt <- match_df$match
-    buffer <- 0
-    for (i in 1:length(match_df$in_match_cap_start[[.x]])) {
-      str_sub(txt, 
-              match_df$in_match_cap_start[[.x]][i]+buffer,
-              match_df$in_match_cap_end[[.x]][i]+buffer) <- "%s"
-      replacement <- paste0("<font style='color:",colors[1+i],"'>",match_df$capture_text[[.x]][i],"</font>")
-      txt <- sprintf(txt, replacement)
-      buffer <- buffer + nchar(replacement)-nchar(match_df$capture_text[[.x]][i])
-    }
-    paste0("<font style='color:",colors[1],"'>",txt,"</font>")
-  })
-  
-  match_df <- match_df %>% 
-    dplyr::select(match_ind, match, replacements, match_start, match_end) %>% 
-    unnest() %>% 
-    distinct()
+  if (perl & !is.null(attr(matches_raw, "capture.start"))) {
+    match_end      <- matches_raw + attr(matches_raw, "match.length") - 1
+    capture_start  <- attr(matches_raw, "capture.start")
+    capture_length <- attr(matches_raw, "capture.length")-1
+    capture_end    <- capture_start + capture_length
+    
+    match_df <- data.frame(match_ind     = c(1:length(matches)),
+                           match         = matches,
+                           match_start   = rep(matches_raw, ncol(capture_end)),
+                           match_end     = rep(match_end, ncol(capture_end)),
+                           capture_ind   = rep(1:ncol(capture_end), each=nrow(capture_end)),
+                           capture_start = as.numeric(capture_start),
+                           capture_end   = as.numeric(capture_end),
+                           stringsAsFactors = FALSE) %>% 
+      dplyr::as_data_frame() %>% 
+      dplyr::arrange(match_ind, capture_start) %>% 
+      dplyr::mutate(capture_text = stringr::str_sub(str, capture_start, capture_end)) %>% 
+      dplyr::mutate(in_match_cap_start = capture_start-(match_start-1)) %>% 
+      dplyr::mutate(in_match_cap_end   = capture_end-(match_start-1)) %>% 
+      dplyr::select(match, match_ind, match_start, match_end, capture_text, capture_ind, in_match_cap_start, in_match_cap_end) %>% 
+      dplyr::distinct() %>% 
+      dplyr::mutate(capture_text = paste0(capture_text,"_",capture_ind)) %>% 
+      dplyr::group_by(match) %>% 
+      dplyr::summarise_all(function(...) list(unique(...))) %>% 
+      dplyr::ungroup()
+    
+    match_df$replacements <- map_chr(1:nrow(match_df), function(.x){
+      txt <- match_df$match
+      buffer <- 0
+      for (i in 1:length(match_df$in_match_cap_start[[.x]])) {
+        cap_txt <- str_match(match_df$capture_text[[.x]][i], "(.+)_\\d+")[,2]
+        str_sub(txt, 
+                match_df$in_match_cap_start[[.x]][i]+buffer,
+                match_df$in_match_cap_end[[.x]][i]+buffer) <- "%s"
+        replacement <- paste0("<span style='background-color:",colors[1+i],"'>",cap_txt,"</span>")
+        txt <- sprintf(txt, replacement)
+        buffer <- buffer + nchar(replacement)-nchar(cap_txt)
+      }
+      paste0("<span style='background-color:",colors[1],"'>",txt,"</span>")
+    })
+    
+    match_df <- match_df %>% 
+      dplyr::select(match_ind, match, replacements, match_start, match_end) %>% 
+      unnest() %>% 
+      distinct()
+  } else {
+    match_end      <- matches_raw + attr(matches_raw, "match.length") - 1
+    
+    match_df <- data.frame(match_ind        = c(1:length(matches)),
+                           match            = matches,
+                           match_start      = matches_raw,
+                           match_end        = match_end,
+                           stringsAsFactors = FALSE) %>% 
+      mutate(replacements = paste0("<span style='background-color:",colors[1],"'>", match,"</span>"))
+  }
   
   txt <- str
   buffer <- 0

@@ -40,7 +40,7 @@ shinyServer(function(input, output, session){
     fixed_log       <- "fixed" %in% input$additional_params
     
     out <- safe_highlight_test_str(test_str(), pattern(), "base", 
-                   ignore_case_log, global_log, perl_log, fixed_log)
+                   ignore_case_log, global_log, perl_log, fixed_log, color_palette=highlight_color_pallete)
     if (is.null(out)) {
       HTML("")
     } else {
@@ -50,7 +50,7 @@ shinyServer(function(input, output, session){
   
   output$match_list_html <- renderUI({
     if(!bad_slash()) {
-      out <- safe_html_format_match_list(match_list())
+      out <- safe_html_format_match_list(match_list(), color_palette=highlight_color_pallete)
     } else if(bad_slash()) {
       out <- paste0("<h4 style='color:#990000'> Error with backslashes.</h4>",
                     "<font style='color:#990000'>Remember to manually escape backslashes when ",
