@@ -1,8 +1,5 @@
 # R Regex Tester Shiny Application
 
-A Shiny application written to test regular expressions in the R environment.  
-
-
 ### Usage:
 
    * Online: visit the application live on [shinyapps.io](https://spannbaueradam.shinyapps.io/r_regex_tester/).
