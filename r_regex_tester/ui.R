@@ -56,8 +56,8 @@ shinyUI(
                                                   <a href='https://twitter.com/share' 
                                                    class='twitter-share-button' 
                                                    align='middle' 
-                                                   data-url='www.mywebsite.com' 
-                                                   data-text='Regex Tester for R www.mywebsite.com' 
+                                                   data-url='https://spannbaueradam.shinyapps.io/r_regex_tester' 
+                                                   data-text='Check out this awesome shiny app for testing regex in #rstats' 
                                                    data-size='large'>Tweet
                                                    </a>
                                                   <script>!function(d,s,id){
