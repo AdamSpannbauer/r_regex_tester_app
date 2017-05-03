@@ -112,7 +112,8 @@ html_format_match_list <- function(match_list, color_palette="Set2") {
   suppressWarnings(colors <- RColorBrewer::brewer.pal(100, color_palette))
   
   match_text <- paste0("<span style='background-color:", colors[1],"'>",
-                       names(match_list),
+                       names(match_list) %>% 
+                         stringr::str_replace_all("\\s", "&nbsp;"),
                        "</span>%s")
   capture_text <- purrr::map_chr(match_list, function(.x){
     if (length(.x) > 0) {
@@ -184,12 +185,12 @@ highlight_test_str <- function(str, pattern, environ="base", ignore_case=TRUE, g
       dplyr::summarise_all(function(...) list(unique(...))) %>% 
       dplyr::ungroup()
     
-    match_df$replacements <- map_chr(1:nrow(match_df), function(.x){
+    match_df$replacements <- purrr::map_chr(1:nrow(match_df), function(.x){
       txt <- match_df$match
       buffer <- 0
       for (i in 1:length(match_df$in_match_cap_start[[.x]])) {
-        cap_txt <- str_match(match_df$capture_text[[.x]][i], "(.+)_\\d+")[,2]
-        str_sub(txt, 
+        cap_txt <- stringr::str_match(match_df$capture_text[[.x]][i], "(.+)_\\d+")[,2]
+        stringr::str_sub(txt, 
                 match_df$in_match_cap_start[[.x]][i]+buffer,
                 match_df$in_match_cap_end[[.x]][i]+buffer) <- "%s"
         replacement <- paste0("<span style='background-color:",colors[1+i],"'>",cap_txt,"</span>")
