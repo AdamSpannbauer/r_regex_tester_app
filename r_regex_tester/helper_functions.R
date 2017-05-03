@@ -119,7 +119,8 @@ html_format_match_list <- function(match_list, color_palette="Set2") {
     if (length(.x) > 0) {
       x_colors <- colors[2:(length(.x)+1)]
       paste0("<li><span style='background-color:", x_colors,"'>",
-             .x,
+             .x %>% 
+               stringr::str_replace_all("\\s", "&nbsp;"),
              "</span></li>") %>% 
         paste(collapse="<br>") %>% 
         paste("<ul>", .,"</ul>")
