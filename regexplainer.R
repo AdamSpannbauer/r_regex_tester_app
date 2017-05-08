@@ -1,6 +1,9 @@
 #explainnnnnnn
+library(magrittr)
+split_vec <- function(vec, splits) split(vec, cumsum(seq_along(vec) %in% (splits)))
 
 regexplain <- function(regx) {
+  # regx <- '\\s+\\s+'
   base_url <- "http://rick.measham.id.au/paste/explain?regex="
   regx_url <- URLencode(regx) %>% 
     stringr::str_replace_all(stringr::fixed("+"), "%2B")
@@ -27,6 +30,22 @@ regexplain <- function(regx) {
   
   rows <- split_rows[-1]
   
-  purrr::map_int(rows, length)
+  good_inds      <- which(purrr::map_int(rows, length) != 1)
+  
+  clean_row_list <- split_vec(rows, good_inds) %>% 
+    purrr::map(unlist) %>% 
+    purrr::map(~c(.x[1], paste(.x[-1], collapse=" ")) %>% 
+                 trimws()) %>% 
+    magrittr::set_names(paste0("node_", seq_along(.)))
+  clean_row_list
+  # explain_df <- do.call('rbind', clean_row_list) %>% 
+  #   dplyr::as_data_frame() %>% 
+  #   magrittr::set_names(c("regex","explanation"))
+  # explain_df
 }
+
+regexplain("\\s+.")
+
+
+
 
