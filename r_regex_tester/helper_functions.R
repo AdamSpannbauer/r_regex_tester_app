@@ -203,7 +203,7 @@ highlight_test_str <- function(str, pattern, environ="base", ignore_case=TRUE, g
     
     match_df <- match_df %>% 
       dplyr::select(match_ind, match, replacements, match_start, match_end) %>% 
-      unnest() %>% 
+      tidyr::unnest() %>% 
       distinct()
   } else {
     match_end      <- matches_raw + attr(matches_raw, "match.length") - 1

@@ -87,6 +87,11 @@ shinyUI(
                                                       textAreaInput("test_str", label="Test String",  value="This is a test string for testing regex.",
                                                                     placeholder="Enter string to match regex against",width="100%")
                                                       ),
+                                            bsCollapse(id = "collapseExample",
+                                                       bsCollapsePanel(HTML("<strong><font size='5'>Explanation</font></strong>"), 
+                                                                       HTML('explanation provided by <a href="http://rick.measham.id.au/paste/explain", target="_blank">rick.measham.id.au</a><hr>'),
+                                                                       DT::dataTableOutput("explaination_dt"),
+                                                                       style = "default")),
                                             wellPanel(style = "background-color: #f2f2f2;",
                                                       HTML("<strong><font size='5'>Results</font></strong><hr>"),
                                                       uiOutput("highlight_str"),

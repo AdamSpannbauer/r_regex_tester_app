@@ -69,4 +69,12 @@ shinyServer(function(input, output, session){
     wellPanel(out, style = 'background-color: #ffffff; overflow-y:scroll; max-height: 500px')
   })
   
+  output$explaination_dt <- DT::renderDataTable({
+    req(pattern())
+    #TODO: MAKE SAFER
+    out = data.frame(ERROR="there was an error retreiving explanation")
+    try({out = regexplain(pattern())})
+    out
+  })
+  
 })#shinyServer

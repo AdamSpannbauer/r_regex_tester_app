@@ -7,7 +7,8 @@ regexplain <- function(regx) {
   base_url <- "http://rick.measham.id.au/paste/explain?regex="
   regx_url <- URLencode(regx) %>% 
     stringr::str_replace_all(stringr::fixed("+"), "%2B") %>% 
-    stringr::str_replace_all(fixed('[[:blank:]]'), '[:blank:]')
+    stringr::str_replace_all(fixed('[[:blank:]]'), '[:blank:]') %>% 
+    stringr::str_replace_all(fixed('[%5E[:blank:]]'), '[%5E:blank:]')
   
   full_url <- paste0(base_url, regx_url)
   
@@ -49,8 +50,14 @@ regexplain <- function(regx) {
     explain_df$regex[blank_inds] <- '[[:blank:]]'
     explain_df$explanation[blank_inds] <- 'any character of: blank characters (space and tab, and possibly other locale-dependent characters such as non-breaking space)'
   }
+  if(stringr::str_detect(regx, fixed('[^[:blank:]]')) & 
+     any(stringr::str_detect(explain_df$regex,fixed('[^:blank:]')))) {
+    blank_inds <- which(explain_df$regex == '[^:blank:]')
+    explain_df$regex[blank_inds] <- '[^[:blank:]]'
+    explain_df$explanation[blank_inds] <- 'any character except: blank characters (space and tab, and possibly other locale-dependent characters such as non-breaking space)'
+  }
   
   explain_df
 }
 
-View(regexplain("\\s+.[[:blank:]][[:alpha:]]"))
+# View(regexplain("test\\s+.[^[:blank:]][[:alpha:]]"))
