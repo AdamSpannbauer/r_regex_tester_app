@@ -12,5 +12,5 @@
    * Option to escape backslashes manually
       * avoid having to double-up on backslashes if copy/pasting regex from another tester
 
-<p align="center"><img align="center" height="300" src="r_regex_app_screenshot.png">
+<p align="center"><img align="center" height="300" src="readme/r_regex_app_screenshot.png">
 </p>
