@@ -1,15 +1,19 @@
-
+# 
 # input <- list(
-#   test_str    = "test string test",
+#   test_str    = "testing",
 #   environ     = "base",
-#   pattern     = "t(es)(t)",
+#   pattern     = "t(es)(tin(g))",
 #   ignore_case = FALSE,
 #   global      = TRUE,
 #   perl        = TRUE
 # )
 # 
-# get_match_list(input$test_str, input$pattern, input$environ, 
-#                input$ignore_case, input$global, input$perl) %>% 
+# out = get_match_list(str=input$test_str,
+#                pattern=input$pattern,
+#                environ=input$environ,
+#                ignore_case=input$ignore_case,
+#                global=input$global,
+#                perl=input$perl)# %>%
 #   html_format_match_list()
 
 half_slashes <- function(str) {
@@ -191,12 +195,15 @@ highlight_test_str <- function(str, pattern, environ="base", ignore_case=TRUE, g
       buffer <- 0
       for (i in 1:length(match_df$in_match_cap_start[[.x]])) {
         cap_txt <- stringr::str_match(match_df$capture_text[[.x]][i], "(.+)_\\d+")[,2]
-        stringr::str_sub(txt, 
-                match_df$in_match_cap_start[[.x]][i]+buffer,
-                match_df$in_match_cap_end[[.x]][i]+buffer) <- "%s"
-        replacement <- paste0("<span style='background-color:",colors[1+i],"'>",cap_txt,"</span>")
-        txt <- sprintf(txt, replacement)
-        buffer <- buffer + nchar(replacement)-nchar(cap_txt)
+        if (match_df$in_match_cap_start[[.x]][i]+buffer <= nchar(txt) &
+            match_df$in_match_cap_end[[.x]][i]+buffer <= nchar(txt)) {
+          stringr::str_sub(txt, 
+                           match_df$in_match_cap_start[[.x]][i]+buffer,
+                           match_df$in_match_cap_end[[.x]][i]+buffer) <- "%s"
+          replacement <- paste0("<span style='background-color:",colors[1+i],"'>",cap_txt,"</span>")
+          txt <- sprintf(txt, replacement)
+          buffer <- buffer + nchar(replacement)-nchar(cap_txt)
+        }
       }
       paste0("<span style='background-color:",colors[1],"'>",txt,"</span>")
     })

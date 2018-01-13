@@ -94,6 +94,7 @@ shinyUI(
                                                                        style = "default")),
                                             wellPanel(style = "background-color: #f2f2f2;",
                                                       HTML("<strong><font size='5'>Results</font></strong><hr>"),
+                                                      HTML("<font size='1'><i>Note: nested capture groups currently not supported for in place highlighting</i></font>"),
                                                       uiOutput("highlight_str"),
                                                       uiOutput("match_list_html")
                                                       )
