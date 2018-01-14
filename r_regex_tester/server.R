@@ -72,6 +72,8 @@ shinyServer(function(input, output, session){
   output$explaination_dt = DT::renderDataTable({
     if (bad_slash()) {
       out = data.frame(ERROR="there was an error retreiving explanation")
+    } else if ("fixed" %in% input$additional_params) {
+      out = data.frame(`NA` ="explanations are not applicable when using Fixed option")
     } else {
       out = safe_regexplain(pattern())
       if(is.null(out)) out = data.frame(ERROR="there was an error retreiving explanation")
