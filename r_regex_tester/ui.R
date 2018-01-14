@@ -10,9 +10,6 @@ shinyUI(
                                    checkboxGroupInput("auto_escape_check_group", "Auto Escape Backslashes",
                                                       choices = c("Pattern"="pattern",
                                                                   "Test String"="test_str")),
-                                   # checkboxInput("escape_slashes_pattern",label = "Escape backslashes in Pattern", value = FALSE),
-                                   # checkboxInput("escape_slashes_test_str",label = "Escape backslashes in Test String", value = FALSE),
-                                   # radioButtons("environ", "Engine", choices=c("base","stringr")),
                                    checkboxGroupInput("additional_params", "Additional Parameters",
                                                       choices = c("Ignore Case"="ignore_case",
                                                                   "Global"="global",
@@ -57,7 +54,7 @@ shinyUI(
                                                    class='twitter-share-button' 
                                                    align='middle' 
                                                    data-url='https://spannbaueradam.shinyapps.io/r_regex_tester' 
-                                                   data-text='Check out this awesome shiny app for testing regex in #rstats' 
+                                                   data-text='Check out this shiny app for testing regex in an #rstats environment' 
                                                    data-size='large'>Tweet
                                                    </a>
                                                   <script>!function(d,s,id){
@@ -71,9 +68,6 @@ shinyUI(
                                                    }(document, 'script', 'twitter-wjs');
                                                    </script>
                                                   </div>")
-                                            # actionButton("tweet_share", "Tweet", icon("twitter"), 
-                                            #              style="color: #ffffff; background-color: #00aced;",
-                                            #              href ="https://twitter.com/intent/tweet?text=test&url=https://www.google.com)")
                                             )
                                    )
                                  ),
@@ -88,13 +82,12 @@ shinyUI(
                                                                     placeholder="Enter string to match regex against",width="100%")
                                                       ),
                                             bsCollapse(id = "collapseExample",
-                                                       bsCollapsePanel(HTML("<strong><font size='5'>Explanation</font></strong>"), 
+                                                       bsCollapsePanel(HTML("<strong><font size='5'>Reg-Explanation</font></strong>"), 
                                                                        HTML('explanation provided by <a href="http://rick.measham.id.au/paste/explain", target="_blank">rick.measham.id.au</a><hr>'),
                                                                        DT::dataTableOutput("explaination_dt"),
                                                                        style = "default")),
                                             wellPanel(style = "background-color: #f2f2f2;",
                                                       HTML("<strong><font size='5'>Results</font></strong><hr>"),
-                                                      HTML("<font size='1'><i>Note: nested capture groups currently not supported for in place highlighting</i></font>"),
                                                       uiOutput("highlight_str"),
                                                       uiOutput("match_list_html")
                                                       )
@@ -111,22 +104,21 @@ shinyUI(
                           fluidRow(
                             column(width=12, align="center",
                                    HTML(paste0("<h4>When in Doubt</h4> ",
-                                               "<img src='https://imgs.xkcd.com/comics/backslashes_2x.png' ",
+                                               "<img src='https://imgs.xkcd.com/comics/backslashes_2x.png' title='I searched my .bash_history for the line with the highest ratio of special characters to regular alphanumeric characters, and the winner was: cat out.txt | grep -o \"[[(].*[])][^)]]*$\" ... I have no memory of this and no idea what I was trying to do, but I sure hope it worked.'",
                                                "height='200' width='500'> ",
                                                "<h5>image source <a href='https://xkcd.com/1638/' target='_blank'>xkcd</a> </h5>"))
                                    )
                           ),
                       icon = icon("home")),#tabPanel
-             tabPanel("Regex Cheatsheet",
+             tabPanel("RStudio Regex Cheatsheet",
                       fluidRow(
                         column(width=12, align="center",
                                HTML('<object width="1100" height="850" data="regex_cheatsheet.pdf"></object>')
                                )
                       )
                       ),
-             tabPanel("Regular Expressions as used in R",
-                      readr::read_lines("www/regex_documentation.txt") %>% 
-                        HTML()
+             tabPanel(HTML("<code>?regex</code>"),
+                      HTML(readLines("www/regex_documentation.txt"))
                       )
              )#navbarpage  
 )#shinyui
