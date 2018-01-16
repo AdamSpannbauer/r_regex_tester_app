@@ -6,11 +6,7 @@
    * Local:  clone this repo and run the shiny app located in the 'r_regex_tester' directory using R Studio.
    
 ### Features:
-   * Test regular expressions in an R environment
-      * highlight matches & captures in test string
-      * display list of matches & captures
-   * Option to escape backslashes manually
-      * avoid having to double-up on backslashes if copy/pasting regex from another tester
+   * For a complete write-up of features please see [this blog post](https://adamspannbauer.github.io/2018/01/16/r-regex-tester-shiny-app/)
 
 <p align="center"><img align="center" height="300" src="readme/r_regex_app_screenshot.png">
 </p>
