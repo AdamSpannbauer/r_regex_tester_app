@@ -141,13 +141,21 @@ highlight_test_str = function(str, pattern, ignore_case=TRUE, global=TRUE, perl=
     }
     
     match_df = match_df[order(height),]
+    
+    for(i in unique(match_df$match_ind)){
+      match_df = rbind(match_df,match_df[match_ind == i][1][,c("capture_ind","height","in_match_cap_start","in_match_cap_end") := list(0,-1,match_start,match_end)])
+    }
     match_df$match[1] = str
 
     for(.x in 1:nrow(match_df)){
       tstart = match_df$in_match_cap_start[.x]
       tend = match_df$in_match_cap_end[.x]
       txt = match_df$match[1]
-      span_start = sprintf("<span style='border:3px; border-style:solid; border-color:%s; padding: %fem;'>",colors[.x],match_df$height[.x])
+      span_start = if(match_df$height[.x] < 0){
+        sprintf("<span style = 'background-color: %s'>",colors[match_df$capture_ind[.x]+1])
+      } else {
+        sprintf("<span style='border:3px; border-style:solid; border-color:%s; padding: %fem;'>",colors[match_df$capture_ind[.x]+1],match_df$height[.x])
+      }
       txt = paste0(substr(txt,0,tstart-1),
              span_start,
              substr(txt,tstart,tend),
