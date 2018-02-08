@@ -132,33 +132,53 @@ highlight_test_str = function(str, pattern, ignore_case=TRUE, global=TRUE, perl=
                                       capture_end   = as.numeric(capture_end))
     match_df = match_df[order(match_ind, capture_start),]
     match_df[, capture_text := stringr::str_sub(str, capture_start, capture_end)]
-    match_df[, in_match_cap_start := capture_start-(match_start-1)]
-    match_df[, in_match_cap_end   := capture_end-(match_start-1)]
+    match_df[, in_match_cap_start := capture_start]
+    match_df[, in_match_cap_end   := capture_end]
     match_df = unique(match_df[, .(match, match_ind, match_start, match_end, capture_text, capture_ind, in_match_cap_start, in_match_cap_end)])
-    match_df[, capture_text := paste0(capture_text,"_",capture_ind)]
-    match_df = match_df[, lapply(.SD, function(...) list(unique(...))), by=match]
     
-    match_df$replacements = vapply(1:nrow(match_df), function(.x){
-      txt = match_df$match
-      buffer = 0
-      for (i in 1:length(match_df$in_match_cap_start[[.x]])) {
-        cap_txt = stringr::str_match(match_df$capture_text[[.x]][i], "(.+)_\\d+")[,2]
-        if (match_df$in_match_cap_start[[.x]][i]+buffer <= nchar(txt) &
-            match_df$in_match_cap_end[[.x]][i]+buffer <= nchar(txt)) {
-          stringr::str_sub(txt, 
-                           match_df$in_match_cap_start[[.x]][i]+buffer,
-                           match_df$in_match_cap_end[[.x]][i]+buffer) = "%s"
-          replacement = paste0("<span style='background-color:",colors[1+i],"'>",cap_txt,"</span>")
-          txt = sprintf(txt, replacement)
-          buffer = buffer + nchar(replacement)-nchar(cap_txt)
+    for(n in 1:nrow(match_df)){
+      match_df$height[n] = sum(match_df[-n]$in_match_cap_start >= match_df[n]$in_match_cap_start & match_df[-n]$in_match_cap_end <= match_df[n]$in_match_cap_end)*0.1
+    }
+    
+    match_df = match_df[order(height),]
+    match_df$match[1] = str
+
+    for(.x in 1:nrow(match_df)){
+      tstart = match_df$in_match_cap_start[.x]
+      tend = match_df$in_match_cap_end[.x]
+      txt = match_df$match[1]
+      span_start = sprintf("<span style='border:3px; border-style:solid; border-color:%s; padding: %fem;'>",colors[.x],match_df$height[.x])
+      txt = paste0(substr(txt,0,tstart-1),
+             span_start,
+             substr(txt,tstart,tend),
+             "</span>",
+             substr(txt,tend+1,nchar(txt)))
+      for(j in 1:nrow(match_df)){
+        if(j == .x) next
+        jstart = match_df$in_match_cap_start[j]
+        jend = match_df$in_match_cap_end[j]
+        ep = 0
+        sp = 0
+        nss = nchar(span_start)
+        if(jstart > tend){
+          ep = nss + 7
+          sp = nss + 7
+        } else if(jstart > tstart & jend > tend){
+          sp = nss
+          ep = nss + 7
+        } else if(jstart <= tstart & jend > tend){
+          sp = 0
+          ep = nss+7
+        } else if(jstart <= tstart & jend <= tend & jend >= tstart){
+          sp = 0
+          ep = nss
         }
+        match_df$in_match_cap_start[j] = match_df$in_match_cap_start[j] + sp
+        match_df$in_match_cap_end[j] = match_df$in_match_cap_end[j] + ep
       }
-      paste0("<span style='background-color:",colors[1],"'>",txt,"</span>")
-    }, character(1))
-    
-    match_df = tidyr::unnest(match_df[,.(match_ind, match, replacements, 
-                                         match_start, match_end)])
-    match_df = unique(match_df)
+      match_df$match[1] = txt
+    }
+    txt = match_df$match[1]
   } else {
     match_end = matches_raw + attr(matches_raw, "match.length") - 1
     
@@ -167,18 +187,17 @@ highlight_test_str = function(str, pattern, ignore_case=TRUE, global=TRUE, perl=
                                       match_start      = matches_raw,
                                       match_end        = match_end) 
     match_df[, replacements := paste0("<span style='background-color:",colors[1],"'>", match,"</span>")]
+    
+    txt = str
+    buffer = 0
+    for (i in 1:nrow(match_df)) {
+      str_sub(txt, 
+              match_df$match_start[i]+buffer,
+              match_df$match_end[i]+buffer) = "%s"
+      txt = sprintf(txt, match_df$replacements[i])
+      buffer = buffer + nchar(match_df$replacements[i]) - nchar(match_df$match[i])
+    }
   }
-  
-  txt = str
-  buffer = 0
-  for (i in 1:nrow(match_df)) {
-    str_sub(txt, 
-            match_df$match_start[i]+buffer,
-            match_df$match_end[i]+buffer) = "%s"
-    txt = sprintf(txt, match_df$replacements[i])
-    buffer = buffer + nchar(match_df$replacements[i]) - nchar(match_df$match[i])
-  }
-  
-  txt
+  return(txt)
 }
 
