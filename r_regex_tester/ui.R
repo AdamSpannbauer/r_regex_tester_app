@@ -2,6 +2,7 @@ shinyUI(
   navbarPage("R Regex Tester",
              theme=shinythemes::shinytheme("cosmo"),
              tabPanel("Home",
+                      tags$head(tags$link(rel="shortcut icon", href="favicon.png")),
                       fluidRow(
                         column(width=12, align="left",
                                sidebarLayout(
