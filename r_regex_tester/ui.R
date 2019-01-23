@@ -7,7 +7,11 @@ shinyUI(
                         column(width=12, align="left",
                                sidebarLayout(
                                  sidebarPanel(style = "background-color: #ffffff;",
-                                   HTML("<strong><font size='5'>Options</font></strong><hr>"),
+                                   HTML("<p style='text-align:left;'>
+                                          <strong><font size='5'>Options</font></strong>
+                                          <span style='float:right;'><img src='logo.png' width='50px'></span>
+                                         </p>
+                                         <hr>"),
                                    checkboxGroupInput("auto_escape_check_group", "Auto Escape Backslashes",
                                                       choices = c("Pattern"="pattern",
                                                                   "Test String"="test_str")),

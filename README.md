@@ -1,4 +1,4 @@
-# R Regex Tester Shiny App
+# R Regex Tester Shiny App <img src='r_regex_tester/www/logo.png' width='75px' align='right'>
 
 ### Usage
 
