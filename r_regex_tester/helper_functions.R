@@ -10,10 +10,10 @@ half_slashes = function(str) {
   half_df[, out := paste0(half_slash, char_cap)]
   half_df = unique(half_df[order(nchar(out)), ])
   
-  halfed_deparse = qdap::mgsub(half_df$match, 
-                                half_df$out, 
-                                deparsed, 
-                                order.pattern = FALSE)
+  halfed_deparse = mgsub(half_df$match, 
+                         half_df$out, 
+                         deparsed, 
+                         order.pattern = FALSE)
   
   eval(parse(text=halfed_deparse))
 }
