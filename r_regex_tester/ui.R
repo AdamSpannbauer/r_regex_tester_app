@@ -22,7 +22,6 @@ shinyUI(
                                                                   "Fixed (overrides Ignore Case & Perl)"="fixed"),
                                                       selected = c("ignore_case","global","perl")),
                                    br(),
-                                   hr(),
                                    fluidRow(
                                      column(width=4, align="center",
                                             HTML('<div style="float:center">
@@ -74,6 +73,12 @@ shinyUI(
                                                    </script>
                                                   </div>")
                                             )
+                                   ),
+                                   hr(),
+                                   fluidRow(
+                                     column(width=12, align='center',
+                                            shiny::includeHTML('www/buy_me_coffee_button.html')
+                                     )
                                    )
                                  ),
                                  mainPanel(
