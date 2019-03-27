@@ -12,6 +12,10 @@ library(htmltools)
 source("helper_functions.R")
 source("regexplainer.R")
 
+buy_me_stuff_button_html <- sample(c('www/buy_me_coffee_button.html',
+                                     'www/buy_me_beer_button.html'),
+                                   size = 1)
+
 safe_slashes                <- purrr::possibly(half_slashes, otherwise = NULL, quiet=FALSE)
 safe_highlight_test_str     <- purrr::possibly(highlight_test_str, otherwise = NULL, quiet=FALSE)
 safe_html_format_match_list <- purrr::possibly(html_format_match_list, otherwise = NULL, quiet=FALSE)

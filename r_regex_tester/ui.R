@@ -77,7 +77,7 @@ shinyUI(
                                    hr(),
                                    fluidRow(
                                      column(width=12, align='center',
-                                            shiny::includeHTML('www/buy_me_coffee_button.html')
+                                            shiny::includeHTML(buy_me_stuff_button_html)
                                      )
                                    )
                                  ),
