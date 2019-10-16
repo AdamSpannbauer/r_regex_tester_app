@@ -6,19 +6,24 @@ Authors@R: c(
     person('Chong', 'Kim', email = 'chong.kim@ucdenver.edu', role = c('ctb'))
     )
 Description: Shiny application that provides R users an application to test/check regular expression query in R.
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
     shiny,
-    golem,
     data.table,
+    golem,
     shinyBS,
     stringr,
     purrr,
     tidyr,
     htmltools,
-    processx
+    processx,
+    RColorBrewer,
+    rvest,
+    shinythemes,
+    xml2,
+    DT
 RoxygenNote: 6.1.1
 Suggests: 
     testthat (>= 2.1.0)
