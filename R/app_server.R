@@ -1,12 +1,16 @@
 #' @import shiny
 #' @import shinyBS
-#' @import data.table
 #' @import stringr
 #' @import purrr
 #' @import tidyr
 #' @import htmltools
 app_server <- function(input, output,session) {
   
+  
+  buy_me_stuff_button_html <- sample(c('inst/app/www/buy_me_coffee_button.html',
+                                         'inst/app/www/buy_me_beer_button.html'),
+                                       size = 1)
+  highlight_color_palette <- "Set3"
   safe_slashes                <- purrr::possibly(half_slashes, otherwise = NULL, quiet=FALSE)
   safe_highlight_test_str     <- purrr::possibly(highlight_test_str, otherwise = NULL, quiet=FALSE)
   safe_html_format_match_list <- purrr::possibly(html_format_match_list, otherwise = NULL, quiet=FALSE)
@@ -57,7 +61,7 @@ app_server <- function(input, output,session) {
     fixed_log       = "fixed" %in% input$additional_params
     
     out = safe_highlight_test_str(test_str(), pattern(), 
-                   ignore_case_log, global_log, perl_log, fixed_log, color_palette=highlight_color_pallete)
+                   ignore_case_log, global_log, perl_log, fixed_log, color_palette=highlight_color_palette)
     if (is.null(out)) {
       HTML("")
     } else {
@@ -67,7 +71,7 @@ app_server <- function(input, output,session) {
   
   output$match_list_html = renderUI({
     if(!bad_slash()) {
-      out = safe_html_format_match_list(match_list(), color_palette=highlight_color_pallete)
+      out = safe_html_format_match_list(match_list(), color_palette=highlight_color_palette)
     } else if(bad_slash()) {
       out = paste0("<h4 style='color:#990000'> Error with backslashes.</h4>",
                     "<font style='color:#990000'>Remember to manually escape backslashes when ",
@@ -82,7 +86,7 @@ app_server <- function(input, output,session) {
     wellPanel(out, style = 'background-color: #ffffff; overflow-y:scroll; max-height: 500px')
   })
   
-  output$explaination_dt = DT::renderDataTable({
+  output$explaination_dt = renderDataTable({
     if (bad_slash()) {
       out = data.frame(ERROR="there was an error retreiving explanation")
     } else if ("fixed" %in% input$additional_params) {

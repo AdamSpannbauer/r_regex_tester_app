@@ -82,7 +82,7 @@ app_ui <- function() {
                                                 hr(),
                                                 fluidRow(
                                                   column(width=12, align='center',
-                                                         shiny::includeHTML(buy_me_stuff_button_html)
+                                                         shiny::includeHTML(buy_me_stuff_button_html())
                                                   )
                                                 )
                                    ),
@@ -99,7 +99,7 @@ app_ui <- function() {
                                               bsCollapse(id = "collapseExample",
                                                          bsCollapsePanel(HTML("<strong><font size='5'>Reg-Explanation</font></strong>"), 
                                                                          HTML('explanation provided by <a href="http://rick.measham.id.au/paste/explain", target="_blank">rick.measham.id.au</a><hr>'),
-                                                                         DT::dataTableOutput("explaination_dt"),
+                                                                         dataTableOutput("explaination_dt"),
                                                                          style = "default")),
                                               wellPanel(style = "background-color: #f2f2f2;",
                                                         HTML("<strong><font size='5'>Results</font></strong><hr>"),

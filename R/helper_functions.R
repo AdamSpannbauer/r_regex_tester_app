@@ -7,10 +7,10 @@ half_slashes = function(str) {
   
   half_df = data.table::as.data.table(stringr::str_match_all(deparsed, "(\\\\+)(.)")[[1]])
   data.table::setnames(half_df, c("match","slash_cap","char_cap"))
-  half_df[, half_slash := stringr::str_sub(slash_cap, 
-                                           end=(nchar(slash_cap)/2))]
-  half_df[, out := paste0(half_slash, char_cap)]
-  half_df = unique(half_df[order(nchar(out)), ])
+  half_df[, half_slash := stringr::str_sub(half_df$slash_cap, 
+                                           end=(nchar(half_df$slash_cap)/2))]
+  half_df[, out := paste0(half_df$half_slash, half_df$char_cap)]
+  half_df = unique(half_df[order(nchar(half_df$out)), ])
   
   halfed_deparse = mgsub(half_df$match, 
                          half_df$out, 
@@ -62,8 +62,8 @@ get_match_list = function(str, pattern, ignore_case=TRUE, global=TRUE, perl=TRUE
                                         match     = matches,
                                         starts    = as.numeric(capture_start),
                                         ends      = as.numeric(capture_end))
-      match_df = match_df[order(match_ind, starts),]
-      match_df[, capture_text := stringr::str_sub(str, starts, ends)]
+      match_df = match_df[order(match_df$match_ind, match_df$starts),]
+      match_df[, capture_text := stringr::str_sub(str, match_df$starts, match_df$ends)]
       
       match_list = split(match_df$capture_text, paste0(match_df$match_ind, "_", match_df$match))
       names(match_list) = gsub("^\\d+_", "", names(match_list))
@@ -79,7 +79,7 @@ NULL
 #' Function to format matched list
 #' 
 #' @param match_list Matched list
-#' @param color_pallete Color pallete to be used for displaying matches
+#' @param color_palette Color pallete to be used for displaying matches
 #' 
 #' @export
 html_format_match_list = function(match_list, color_palette="Set2") {
@@ -161,11 +161,11 @@ highlight_test_str = function(str, pattern, ignore_case=TRUE, global=TRUE, perl=
                                       capture_ind   = rep(1:ncol(capture_end), each=nrow(capture_end)),
                                       capture_start = as.numeric(capture_start),
                                       capture_end   = as.numeric(capture_end))
-    match_df = match_df[order(match_ind, capture_start),]
+    match_df = match_df[order(match_df$match_ind, capture_start),]
     match_df[, capture_text := stringr::str_sub(str, capture_start, capture_end)]
     match_df[, in_match_cap_start := capture_start-(match_start-1)]
     match_df[, in_match_cap_end   := capture_end-(match_start-1)]
-    match_df = unique(match_df[, .(match, match_ind, match_start, match_end, capture_text, capture_ind, in_match_cap_start, in_match_cap_end)])
+    match_df = unique(match_df[, .(match, match_df$match_ind, match_start, match_end, capture_text, capture_ind, in_match_cap_start, in_match_cap_end)])
     match_df[, capture_text := paste0(capture_text,"_",capture_ind)]
     match_df = match_df[, lapply(.SD, function(...) list(unique(...))), by=match]
     
@@ -187,7 +187,7 @@ highlight_test_str = function(str, pattern, ignore_case=TRUE, global=TRUE, perl=
       paste0("<span style='background-color:",colors[1],"'>",txt,"</span>")
     }, character(1))
     
-    match_df = tidyr::unnest(match_df[,.(match_ind, match, replacements, 
+    match_df = tidyr::unnest(match_df[,.(match_df$match_ind, match, replacements, 
                                          match_start, match_end)])
     match_df = unique(match_df)
   } else {

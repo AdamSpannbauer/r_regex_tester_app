@@ -1,4 +1,9 @@
-globalVariables(c("half_slashes"))
+#' @importFrom purrr     transpose
+#' @importFrom data.table     := .SD 
+#' @importFrom utils     URLencode
+NULL
+
+globalVariables(c("half_slashes", "capture_text","in_match_cap_start","match_start","in_match_cap_end","capture_ind","replacements", "spaste", "half_slash", ".", "out", "buy_me_stuff_button_html","r_lookup"))
 
 #' \pkg{regexTestR}: R Regex Tester Shiny App
 #'
