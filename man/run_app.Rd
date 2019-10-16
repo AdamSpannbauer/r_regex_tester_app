@@ -6,6 +6,9 @@
 \usage{
 run_app(...)
 }
+\arguments{
+\item{...}{Additional golem options}
+}
 \description{
 Run the Shiny Application
 }

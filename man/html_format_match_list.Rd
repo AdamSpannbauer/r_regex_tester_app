@@ -9,7 +9,7 @@ html_format_match_list(match_list, color_palette = "Set2")
 \arguments{
 \item{match_list}{Matched list}
 
-\item{color_pallete}{Color pallete to be used for displaying matches}
+\item{color_palette}{Color pallete to be used for displaying matches}
 }
 \description{
 Function to format matched list

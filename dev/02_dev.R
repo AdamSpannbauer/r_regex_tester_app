@@ -18,6 +18,11 @@ usethis::use_package( "stringr" )
 usethis::use_package( "purrr" ) 
 usethis::use_package( "tidyr" ) 
 usethis::use_package( "htmltools" )
+usethis::use_package( "DT" )
+usethis::use_package( "RColorBrewer" )
+usethis::use_package( "rvest" )
+usethis::use_package( "shinythemes" )
+usethis::use_package( "xml2" )
 
 ## 2.3 Add tests
 
