@@ -3,12 +3,15 @@ library(data.table)
 half_slashes = function(str) {
   deparsed = deparse(str)
   
-  half_df = data.table::as.data.table(stringr::str_match_all(deparsed, "(\\\\+)(.)")[[1]])
+  half_df = data.table::as.data.table(stringr::str_match_all(deparsed, "(\\\\)(.)")[[1]])
   data.table::setnames(half_df, c("match","slash_cap","char_cap"))
   half_df[, half_slash := stringr::str_sub(slash_cap, 
                                            end=(nchar(slash_cap)/2))]
   half_df[, out := paste0(half_slash, char_cap)]
   half_df = unique(half_df[order(nchar(out)), ])
+  
+  # Removing slashes before double quoutes breaks eval
+  half_df = half_df[char_cap != '"']
   
   halfed_deparse = mgsub(half_df$match, 
                          half_df$out, 

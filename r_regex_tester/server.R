@@ -12,7 +12,7 @@ shinyServer(function(input, output, session){
                      input$pattern, 
                      safe_slashes(input$pattern))
     
-    htmltools::htmlEscape(pattern)
+    pattern
   })
   
   test_str = reactive({
@@ -21,8 +21,8 @@ shinyServer(function(input, output, session){
     test_str = ifelse("test_str" %in% input$auto_escape_check_group, 
                       input$test_str, 
                       safe_slashes(input$test_str))
-    
-    htmltools::htmlEscape(test_str)
+
+    test_str
   })
   
   match_list = reactive({

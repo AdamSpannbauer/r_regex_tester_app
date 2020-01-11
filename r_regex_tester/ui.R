@@ -88,8 +88,11 @@ shinyUI(
                                                       HTML("<strong><font size='5'>Input</font></strong><hr>"),
                                                       textInput("pattern",  label="Matching Pattern", value="t(es)(t)", 
                                                                 placeholder="Enter regex to match", width="100%"),
-                                                      textAreaInput("test_str", label="Test String",  value="This is a test string for testing regex.",
-                                                                    placeholder="Enter string to match regex against",width="100%")
+                                                      textAreaInput("test_str", 
+                                                                    label=HTML("Test String (<a href='https://stackoverflow.com/a/1732454/5731525' target='_blank'>HTML tags are not supported</a>)"),  
+                                                                    value="This is a test string for testing regex.",
+                                                                    placeholder="Enter string to match regex against",
+                                                                    width="100%")
                                                       ),
                                             bsCollapse(id = "collapseExample",
                                                        bsCollapsePanel(HTML("<strong><font size='5'>Reg-Explanation</font></strong>"), 
