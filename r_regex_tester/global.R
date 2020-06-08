@@ -1,5 +1,5 @@
-rm(list=ls())
-options(shiny.trace=FALSE)
+rm(list = ls())
+options(shiny.trace = FALSE)
 
 library(shiny)
 library(shinyBS)
@@ -12,38 +12,53 @@ library(htmltools)
 source("helper_functions.R")
 source("regexplainer.R")
 
-buy_me_stuff_button_html <- sample(c('www/buy_me_coffee_button.html',
-                                     'www/buy_me_beer_button.html'),
+buy_me_stuff_button_html = sample(c("www/buy_me_coffee_button.html",
+                                     "www/buy_me_beer_button.html"),
                                    size = 1)
 
-safe_slashes                <- purrr::possibly(half_slashes, otherwise = NULL, quiet=FALSE)
-safe_highlight_test_str     <- purrr::possibly(highlight_test_str, otherwise = NULL, quiet=FALSE)
-safe_html_format_match_list <- purrr::possibly(html_format_match_list, otherwise = NULL, quiet=FALSE)
-safe_get_match_list         <- purrr::possibly(get_match_list, otherwise = NULL, quiet=FALSE)
-safe_regexplain             <- purrr::possibly(regexplain, otherwise = NULL, quiet=FALSE)
+purr_possibly = function(.f, otherwise = NULL, quiet=FALSE) {
+  purrr::possibly(.f, otherwise = otherwise, quiet = quiet)
+}
 
-highlight_color_pallete <- "Set3"
+safe_slashes = purr_possibly(half_slashes)
+safe_highlight_test_str = purr_possibly(highlight_test_str)
+safe_html_format_match_list = purr_possibly(html_format_match_list)
+safe_get_match_list = purr_possibly(get_match_list)
+safe_regexplain = purr_possibly(regexplain)
 
-mgsub = function (pattern, replacement, text.var, leadspace = FALSE, trailspace = FALSE, 
-                  fixed = TRUE, trim = TRUE, order.pattern = fixed, ...) {
+highlight_color_pallete = "Set3"
+
+
+mgsub = function(pattern, replacement, text.var, leadspace = FALSE,
+                  trailspace = FALSE, fixed = TRUE, trim = TRUE,
+                  order.pattern = fixed, ...) {
+  #' @description I wanted qdap::mgsub() w/o having to have full qdap package,
+  #'              which has had issues deploying around rJava i think...
+
   if (leadspace | trailspace)
-    replacement <- spaste(replacement, trailing = trailspace, leading = leadspace)
-  
+    replacement = spaste(replacement,
+                         trailing = trailspace,
+                         leading = leadspace)
+
   if (fixed && order.pattern) {
-    ord <- rev(order(nchar(pattern)))
-    pattern <- pattern[ord]
+    ord = rev(order(nchar(pattern)))
+    pattern = pattern[ord]
     if (length(replacement) != 1)
-      replacement <- replacement[ord]
+      replacement = replacement[ord]
   }
   if (length(replacement) == 1)
-    replacement <- rep(replacement, length(pattern))
-  
+    replacement = rep(replacement, length(pattern))
+
   for (i in seq_along(pattern)) {
-    text.var <- gsub(pattern[i], replacement[i], text.var, fixed = fixed, ...)
+    text.var = gsub(pattern[i], replacement[i], text.var, fixed = fixed, ...)
   }
-  
+
   if (trim)
-    text.var <-
-      gsub("\\s+", " ", gsub("^\\s+|\\s+$", "", text.var, perl = TRUE), perl = TRUE)
+    text.var = gsub(
+      "\\s+",
+      " ",
+      gsub("^\\s+|\\s+$", "", text.var, perl = TRUE),
+      perl = TRUE
+    )
   text.var
 }
