@@ -32,8 +32,8 @@ highlight_color_pallete = "Set3"
 mgsub = function(pattern, replacement, text.var, leadspace = FALSE,
                   trailspace = FALSE, fixed = TRUE, trim = TRUE,
                   order.pattern = fixed, ...) {
-  #' @description I wanted qdap::mgsub() w/o having to have full qdap package,
-  #'              which has had issues deploying around rJava i think...
+  #' @description I wanted qdap::mgsub() w/o having to have full qdap package.
+  #'              qdap has had issues related to deploying a shinyapp.
 
   if (leadspace | trailspace)
     replacement = spaste(replacement,

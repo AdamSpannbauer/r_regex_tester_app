@@ -6,7 +6,7 @@ shinyServer(function(input, output, session) {
         is.null(safe_slashes(input$pattern))
     ) | (
       !("test_str" %in% input$auto_escape_check_group) &
-        is.null(safe_slashes(input$test_str))
+        is.null(safe_slashes(input$test_str, exclude = c("\\n")))
     )
   })
 
@@ -25,7 +25,7 @@ shinyServer(function(input, output, session) {
 
     test_str = ifelse("test_str" %in% input$auto_escape_check_group,
                       input$test_str,
-                      safe_slashes(input$test_str))
+                      safe_slashes(input$test_str, exclude = c("\\n")))
 
     test_str
   })
@@ -57,6 +57,8 @@ shinyServer(function(input, output, session) {
       fixed_log,
       color_palette = highlight_color_pallete
     )
+    
+    out = gsub("\n", "<br>", out)
 
     if (is.null(out)) {
       HTML("")
