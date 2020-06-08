@@ -1,0 +1,13 @@
+# Hack to install:
+# install.packages(grep("^\\w", trimws(readLines("requirements.txt")), value = TRUE))
+
+shiny
+shinyBS
+data.table
+stringr
+purrr
+tidyr
+htmltools
+shinythemes
+DT
+RColorBrewer
