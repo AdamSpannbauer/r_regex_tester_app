@@ -1,0 +1,30 @@
+Package: regexTestR
+Title: regexTestR
+Version: 0.1.0
+Authors@R: person('Adam', 'Spannbauer', email = 'spannbaueradam@gmail.com', role = c('cre', 'aut'))
+Description: A shiny app to test regex in an R environment.
+License: MIT + file LICENSE
+Imports: 
+    config,
+    DT,
+    RColorBrewer,
+    golem,
+    shiny,
+    shinyBS,
+    shinythemes,
+    processx,
+    htmltools,
+    data.table,
+    stringr,
+    tidyr,
+    pkgload,
+    rvest,
+    xml2,
+    purrr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0
+URL: https://github.com/AdamSpannbauer/r_regex_tester_app
+BugReports: https://github.com/AdamSpannbauer/r_regex_tester_app/issues
+Suggests: 
+    testthat
