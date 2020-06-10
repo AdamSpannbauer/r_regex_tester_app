@@ -3,7 +3,7 @@ context("try_default")
 
 test_that("try_default basic", {
   add = function(a, b) a + b
-  safe_add = regexTestR::try_default(add, default = NULL)
+  safe_add = regexTestR:::try_default(add, default = NULL, silent = TRUE)
 
   x = runif(1)
   y = runif(1)
@@ -15,7 +15,7 @@ test_that("try_default basic", {
 
 test_that("try_default change default", {
   add = function(a, b) a + b
-  safe_add = regexTestR::try_default(add, default = FALSE)
+  safe_add = regexTestR:::try_default(add, default = FALSE, silent = TRUE)
 
   expect_false(safe_add(1, "1"))
 })
