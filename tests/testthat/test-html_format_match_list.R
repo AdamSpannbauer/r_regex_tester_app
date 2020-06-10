@@ -4,6 +4,7 @@ context("html_format_match_list")
 test_that("html_format_match_list basic", {
   match_list = regexTestR:::get_match_list("abc aaa", "a(..)")
   test_result = regexTestR:::html_format_match_list(match_list)
+
   expected = paste0(
     "<h4>Matched & Captured Text</h4>",
     "<ol>",
@@ -24,4 +25,19 @@ test_that("html_format_match_list basic", {
   )
 
   expect_equal(test_result, expected)
+})
+
+
+test_that("html_format_match_list no capture", {
+  match_list = regexTestR:::get_match_list("a", "a")
+  test_result = regexTestR:::html_format_match_list(match_list)
+
+  expected = paste0(
+    "<h4>Matched & Captured Text</h4>",
+    "<ol>",
+    "<li>",
+    "<span style='background-color:#8DD3C7'>a</span>",
+    "</li>",
+    "</ol>"
+  )
 })
