@@ -18,7 +18,7 @@ app_server = function(input, output, session) {
         is.null(safe_half_slashes(input$pattern))
     ) | (
       !("test_str" %in% input$auto_escape_check_group) &
-        is.null(safe_half_slashes(input$test_str, exclude = c("\\n")))
+        is.null(safe_half_slashes(input$test_str))
     )
   })
 
@@ -37,7 +37,7 @@ app_server = function(input, output, session) {
 
     test_str = ifelse("test_str" %in% input$auto_escape_check_group,
                       input$test_str,
-                      safe_half_slashes(input$test_str, exclude = c("\\n")))
+                      safe_half_slashes(input$test_str))
 
     test_str
   })

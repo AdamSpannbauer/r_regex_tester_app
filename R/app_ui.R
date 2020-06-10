@@ -23,7 +23,8 @@ app_ui = function(request) {
                                                      <hr>"),
                                                 checkboxGroupInput("auto_escape_check_group", "Auto Escape Backslashes",
                                                                    choices = c("Pattern" = "pattern",
-                                                                               "Test String" = "test_str")),
+                                                                               "Test String" = "test_str"),
+                                                                   selected = "test_str"),
                                                 checkboxGroupInput("additional_params", "Additional Parameters",
                                                                    choices = c("Ignore Case" = "ignore_case",
                                                                                "Global" = "global",
@@ -82,6 +83,21 @@ app_ui = function(request) {
                                                                  </script>
                                                               </div>")
                                                   )  # col_4
+                                                ),  # fluidRow
+                                                hr(),
+                                                fluidRow(
+                                                  col_12(align = "center",
+                                                         HTML(
+                                                           paste0(
+                                                             "<a ",
+                                                             "href='https://adamspannbauer.github.io/2018/01/16/r-regex-tester-shiny-app/' ",
+                                                             "target='_blank'",
+                                                             ">",
+                                                             "<h4>About the app<h4>",
+                                                             "</a>"
+                                                           )
+                                                         )  # HTML
+                                                  )  # col_12
                                                 ),  # fluidRow
                                                 hr(),
                                                 fluidRow(
