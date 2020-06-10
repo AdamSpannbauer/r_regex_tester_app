@@ -45,8 +45,7 @@ half_slashes = function(str, exclude = character(0)) {
 
   halfed_deparse = mgsub(half_df$match,
                          half_df$out,
-                         deparsed,
-                         order.pattern = FALSE)
+                         deparsed)
 
   eval(parse(text = halfed_deparse))
 }
