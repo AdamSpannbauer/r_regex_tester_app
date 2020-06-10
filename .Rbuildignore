@@ -1,4 +1,6 @@
 \.lintr
+\.travis.yml
+\.codecov.yml
 readme
 ^.*\.Rproj$
 ^\.Rproj\.user$
