@@ -1,0 +1,14 @@
+language: R
+sudo: false
+cache: packages
+r:
+  - release
+  - devel
+
+r_github_packages:
+  - jimhester/lintr
+
+after_success:
+  - Rscript -e 'covr::codecov(function_exclusions = c("app_server", "run_app", "app_config", "get_golem_config"))'
+  - R CMD INSTALL $PKG_TARBALL
+  - Rscript -e 'lintr::lint_package()'
