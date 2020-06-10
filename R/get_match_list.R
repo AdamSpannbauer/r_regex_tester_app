@@ -36,7 +36,7 @@ get_match_list = function(str, pattern, ignore_case=TRUE,
                            perl = perl,
                            ignore.case = ignore_case)[[1]]
 
-    suppressWarnings(if (matches_raw == -1) return(NULL))
+    if (all(matches_raw == -1)) return(NULL)
 
     matches = regmatches(rep(str, length(matches_raw)),
                          matches_raw)
