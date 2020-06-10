@@ -17,10 +17,10 @@ app_ui = function(request) {
                                  sidebarLayout(
                                    sidebarPanel(style = "background-color: #ffffff;",
                                                 HTML("<p style='text-align:left;'>
-                                          <strong><font size='5'>Options</font></strong>
-                                          <span style='float:right;'><img src='www/logo.png' width='50px'></span>
-                                         </p>
-                                         <hr>"),
+                                                        <strong><font size='5'>Options</font></strong>
+                                                        <span style='float:right;'><img src='www/logo.png' width='50px'></span>
+                                                     </p>
+                                                     <hr>"),
                                                 checkboxGroupInput("auto_escape_check_group", "Auto Escape Backslashes",
                                                                    choices = c("Pattern" = "pattern",
                                                                                "Test String" = "test_str")),
@@ -34,64 +34,64 @@ app_ui = function(request) {
                                                 fluidRow(
                                                   col_4(align = "center",
                                                          HTML('<div style="float:center">
-                                                  <a class="github-button"
-                                                    href="https://github.com/AdamSpannbauer/r_regex_tester_app/issues"
-                                                    data-icon="octicon-issue-opened"
-                                                    data-style="mega"
-                                                    data-count-api="/repos/AdamSpannbauer/r_regex_tester_app#open_issues_count"
-                                                    data-count-aria-label="# issues on GitHub"
-                                                    aria-label="Issue AdamSpannbauer/r_regex_tester_app on GitHub">
-                                                    Issue</a>
-                                                  <!-- Place this tag in your head or just before your close body tag. -->
-                                                  <script async defer src="https://buttons.github.io/buttons.js"></script>
-                                                  </div>')
-                                                  ),
+                                                                <a class="github-button"
+                                                                  href="https://github.com/AdamSpannbauer/r_regex_tester_app/issues"
+                                                                  data-icon="octicon-issue-opened"
+                                                                  data-style="mega"
+                                                                  data-count-api="/repos/AdamSpannbauer/r_regex_tester_app#open_issues_count"
+                                                                  data-count-aria-label="# issues on GitHub"
+                                                                  aria-label="Issue AdamSpannbauer/r_regex_tester_app on GitHub">
+                                                                  Issue</a>
+                                                                <!-- Place this tag in your head or just before your close body tag. -->
+                                                                <script async defer src="https://buttons.github.io/buttons.js"></script>
+                                                              </div>')
+                                                  ),  # col_4
                                                   col_4(align = "center",
                                                          HTML('<div style="float:center">
-                                                  <a class="github-button"
-                                                    href="https://github.com/AdamSpannbauer/r_regex_tester_app"
-                                                    data-icon="octicon-star"
-                                                    data-style="mega"
-                                                    data-count-href="/AdamSpannbauer/r_regex_tester_app/stargazers"
-                                                    data-count-api="/repos/AdamSpannbauer/r_regex_tester_app#stargazers_count"
-                                                    data-count-aria-label="# stargazers on GitHub"
-                                                    aria-label="Star AdamSpannbauer/r_regex_tester_app on GitHub">
-                                                    Star</a>
-                                                  <!-- Place this tag in your head or just before your close body tag. -->
-                                                  <script async defer src="https://buttons.github.io/buttons.js"></script>
-                                                  </div>')
-                                                  ),
+                                                                <a class="github-button"
+                                                                  href="https://github.com/AdamSpannbauer/r_regex_tester_app"
+                                                                  data-icon="octicon-star"
+                                                                  data-style="mega"
+                                                                  data-count-href="/AdamSpannbauer/r_regex_tester_app/stargazers"
+                                                                  data-count-api="/repos/AdamSpannbauer/r_regex_tester_app#stargazers_count"
+                                                                  data-count-aria-label="# stargazers on GitHub"
+                                                                  aria-label="Star AdamSpannbauer/r_regex_tester_app on GitHub">
+                                                                  Star</a>
+                                                                <!-- Place this tag in your head or just before your close body tag. -->
+                                                                <script async defer src="https://buttons.github.io/buttons.js"></script>
+                                                              </div>')
+                                                  ),  # col_4
                                                   col_4(align = "center",
                                                          HTML("<div style='float:center'>
-                                                  <a href='https://twitter.com/share'
-                                                   class='twitter-share-button'
-                                                   align='middle'
-                                                   data-url='https://spannbaueradam.shinyapps.io/r_regex_tester'
-                                                   data-text='Check out this shiny app for testing regex in an #rstats environment'
-                                                   data-size='large'>Tweet
-                                                   </a>
-                                                  <script>!function(d,s,id) {
-                                                   var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-                                                   if(!d.getElementById(id)) {
-                                                   js=d.createElement(s);
-                                                   js.id=id;
-                                                   js.src=p+'://platform.twitter.com/widgets.js';
-                                                   fjs.parentNode.insertBefore(js,fjs);
-                                                   }
-                                                   }(document, 'script', 'twitter-wjs');
-                                                   </script>
-                                                  </div>")
-                                                  )
-                                                ),
+                                                                <a href='https://twitter.com/share'
+                                                                 class='twitter-share-button'
+                                                                 align='middle'
+                                                                 data-url='https://spannbaueradam.shinyapps.io/r_regex_tester'
+                                                                 data-text='Check out this shiny app for testing regex in an #rstats environment'
+                                                                 data-size='large'>Tweet
+                                                                 </a>
+                                                                <script>!function(d,s,id) {
+                                                                 var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+                                                                 if(!d.getElementById(id)) {
+                                                                 js=d.createElement(s);
+                                                                 js.id=id;
+                                                                 js.src=p+'://platform.twitter.com/widgets.js';
+                                                                 fjs.parentNode.insertBefore(js,fjs);
+                                                                 }
+                                                                 }(document, 'script', 'twitter-wjs');
+                                                                 </script>
+                                                              </div>")
+                                                  )  # col_4
+                                                ),  # fluidRow
                                                 hr(),
                                                 fluidRow(
                                                   col_12(align = "center",
                                                          shiny::includeHTML(
                                                            app_sys(file.path("app/www", buy_me_stuff_btn()))
                                                           )
-                                                  )
-                                                )
-                                   ),
+                                                  )  # col_12
+                                                )  # fluidRow
+                                   ),  # sidebarPanel
                                    mainPanel(
                                      fluidRow(
                                        col_12(align = "left",
@@ -107,7 +107,7 @@ app_ui = function(request) {
                                                                       value = "This is a test string for testing regex.",
                                                                       placeholder = "Enter string to match regex against",
                                                                       width = "100%")
-                                              ),
+                                              ),  # wellPanel
                                               shinyBS::bsCollapse(
                                                 id = "collapseExample",
                                                 shinyBS::bsCollapsePanel(
@@ -115,42 +115,46 @@ app_ui = function(request) {
                                                   HTML('explanation provided by <a href="http://rick.measham.id.au/paste/explain", target="_blank">rick.measham.id.au</a><hr>'),
                                                   DT::dataTableOutput("explaination_dt"),
                                                   style = "default"
-                                                  )
-                                                ),
+                                                  )  # bsCollapsePanel
+                                                ),  # bsCollapse
                                               wellPanel(style = "background-color: #f2f2f2;",
                                                         HTML("<strong><font size='5'>Results</font></strong><hr>"),
                                                         uiOutput("highlight_str"),
                                                         uiOutput("match_list_html")
-                                              )
-                                       )
-                                     )
-                                   )
-                                 )
-                          )
-                        ),
+                                              )  # wellPanel
+                                       )  # col_12
+                                     )  # fluidRow
+                                   )  # mainPanel
+                                 )  # sidebarLayout
+                          )  # col_12
+                        ),  # fluidRow
                         rep_br(3),
                         hr(),
                         fluidRow(
                           col_12(align = "center",
-                                 HTML(paste0("<h4>When in Doubt</h4> ",
-                                             "<img src='https://imgs.xkcd.com/comics/backslashes_2x.png' title='I searched my .bash_history for the line with the highest ratio of special characters to regular alphanumeric characters, and the winner was: cat out.txt | grep -o \"[[(].*[])][^)]]*$\" ... I have no memory of this and no idea what I was trying to do, but I sure hope it worked.'",
-                                             "height='200' width='500'> ",
-                                             "<h5>image source <a href='https://xkcd.com/1638/' target='_blank'>xkcd</a> </h5>"))
-                          )
-                        ),
-                        icon = icon("home")), # tabPanel
+                                 HTML(
+                                   paste0("<h4>When in Doubt</h4> ",
+                                          "<img src='https://imgs.xkcd.com/comics/backslashes_2x.png' title='I searched my .bash_history for the line with the highest ratio of special characters to regular alphanumeric characters, and the winner was: cat out.txt | grep -o \"[[(].*[])][^)]]*$\" ... I have no memory of this and no idea what I was trying to do, but I sure hope it worked.'",
+                                          "height='200' width='500'> ",
+                                          "<h5>image source <a href='https://xkcd.com/1638/' target='_blank'>xkcd</a> </h5>"
+                                          )
+                                   )  # HTML
+                          )  # col_12
+                        ),  # fluidRow
+                        icon = icon("home")
+                        ), # tabPanel
                tabPanel("RStudio Regex Cheatsheet",
                         fluidRow(
                           col_12(align = "center",
                                  HTML('<object width="1100" height="850" data="www/regex_cheatsheet.pdf"></object>')
-                          )
-                        )
-               ),
+                          )  # col_12
+                        )  # fluidRow
+               ),  # tabPanel
                tabPanel(HTML("<code>?regex</code>"),
                         shiny::includeHTML(
                           app_sys("app/www/regex_documentation.html")
                         )
-               )
+               )  # tabPanel
     )  # navbarPage
   )  # tagList
 }
