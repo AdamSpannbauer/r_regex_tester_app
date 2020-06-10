@@ -10,7 +10,7 @@ test_that("get_match_list basic", {
 
 
 test_that("get_match_list perl = FALSE", {
-  test_result = get_match_list("abc aaa", "a(..)", perl = FALSE)
+  test_result = regexTestR:::get_match_list("abc aaa", "a(..)", perl = FALSE)
   expected = list("abc" = character(0), "aaa" = character(0))
 
   expect_equal(test_result, expected)

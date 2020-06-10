@@ -85,8 +85,8 @@ highlight_test_str = function(str, pattern, ignore_case = TRUE,
       .SD, function(...) list(unique(...))
     ), by = match]
 
-    match_df$replacements = vapply(length(nrow(match_df)), function(.x) {
-      txt = match_df$match
+    match_df$replacements = vapply(seq_len(nrow(match_df)), function(.x) {
+      txt = match_df$match[.x]
       buffer = 0
       for (i in seq_len(length(match_df$in_match_cap_start[[.x]]))) {
         cap_txt = stringr::str_match(
