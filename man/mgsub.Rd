@@ -4,15 +4,7 @@
 \alias{mgsub}
 \title{Multi gsub}
 \usage{
-mgsub(
-  pattern,
-  replacement,
-  text.var,
-  fixed = TRUE,
-  trim = TRUE,
-  order.pattern = fixed,
-  ...
-)
+mgsub(pattern, replacement, text.var, fixed = TRUE, ...)
 }
 \arguments{
 \item{pattern}{Character string to be matched in the given character
@@ -26,15 +18,6 @@ one which are a replacement for matched pattern.}
 \item{fixed}{logical. If TRUE, pattern is a string to be matched as is.
 Overrides all conflicting arguments.}
 
-\item{trim}{logical. If TRUE leading and trailing white spaces are removed
-and multiple white spaces are reduced to a single white space.}
-
-\item{order.pattern}{logical. If TRUE and fixed = TRUE, the pattern string
-is sorted by number of characters to prevent
-substrings replacing meta strings
-(e.g., pattern = c("the", "then") resorts to search
-for "then" first).}
-
 \item{...}{Additional arguments passed to gsub.}
 }
 \value{
@@ -42,6 +25,7 @@ text.var with substitutions applied
 }
 \description{
 I wanted qdap::mgsub() w/o having to have full qdap package.
-             qdap has had issues related to deploying a shinyapp.
+             qdap has had issues related to deploying a shinyapp.  So this
+             is a trimmed down version of qdap::mgsub()
 }
 \keyword{internal}
