@@ -40,4 +40,6 @@ test_that("html_format_match_list no capture", {
     "</li>",
     "</ol>"
   )
+
+  expect_equal(test_result, expected)
 })
