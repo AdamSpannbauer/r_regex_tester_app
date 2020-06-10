@@ -33,8 +33,8 @@ get_match_list = function(str, pattern, ignore_case=TRUE,
     matches_raw = gregexpr(pattern,
                            str,
                            fixed = fixed,
-                           perl = perl,
-                           ignore.case = ignore_case)[[1]]
+                           perl = perl & !fixed,
+                           ignore.case = ignore_case & !fixed)[[1]]
 
     if (all(matches_raw == -1)) return(NULL)
 
@@ -44,8 +44,8 @@ get_match_list = function(str, pattern, ignore_case=TRUE,
     matches_raw = regexpr(pattern,
                           str,
                           fixed = fixed,
-                          perl = perl,
-                          ignore.case = ignore_case)
+                          perl = perl & !fixed,
+                          ignore.case = ignore_case & !fixed)
 
     matches = regmatches(str, matches_raw)[[1]]
   }

@@ -33,10 +33,10 @@ highlight_test_str = function(str, pattern, ignore_case = TRUE,
     matches_raw = gregexpr(pattern,
                            str,
                            fixed = fixed,
-                           perl = perl,
-                           ignore.case = ignore_case)[[1]]
+                           perl = perl & !fixed,
+                           ignore.case = ignore_case & !fixed)[[1]]
 
-    suppressWarnings(if (matches_raw == -1) return(NULL))
+    if (all(matches_raw == -1)) return(NULL)
 
     matches = regmatches(rep(str, length(matches_raw)),
                          matches_raw)
@@ -44,10 +44,10 @@ highlight_test_str = function(str, pattern, ignore_case = TRUE,
     matches_raw = regexpr(pattern,
                           str,
                           fixed = fixed,
-                          perl = perl,
-                          ignore.case = ignore_case)
+                          perl = perl & !fixed,
+                          ignore.case = ignore_case & !fixed)
 
-    suppressWarnings(if (matches_raw == -1) return(NULL))
+    if (all(matches_raw == -1)) return(NULL)
 
     matches = regmatches(str, matches_raw)[[1]]
   }
