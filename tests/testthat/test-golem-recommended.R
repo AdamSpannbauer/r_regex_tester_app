@@ -22,7 +22,7 @@ test_that(
       "R",
       c(
         "-e",
-        "pkgload::load_all(here::here());run_app()"
+        "regexTestR::run_app()"
       )
     )
     Sys.sleep(5)
