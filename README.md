@@ -1,4 +1,4 @@
-# R Regex Tester Shiny App <img src='r_regex_tester/www/logo.png' width='75px' align='right'>
+# R Regex Tester Shiny App <img src='inst/app/www/logo.png' width='75px' align='right'>
 
 [![Build Status](https://travis-ci.org/AdamSpannbauer/r_regex_tester_app.svg?branch=master)](https://travis-ci.org/AdamSpannbauer/r_regex_tester_app) 
 [![Codecov test coverage](https://codecov.io/gh/AdamSpannbauer/r_regex_tester_app/branch/master/graph/badge.svg)](https://codecov.io/gh/AdamSpannbauer/r_regex_tester_app?branch=master)
