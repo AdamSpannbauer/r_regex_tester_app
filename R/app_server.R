@@ -12,7 +12,7 @@ app_server = function(input, output, session) {
   safe_regexplain = try_default(regexplain)
 
 
-  bad_slash = reactive({
+  bad_slash = shiny::reactive({
     (
       !("pattern" %in% input$auto_escape_check_group) &
         is.null(safe_half_slashes(input$pattern))
@@ -22,7 +22,7 @@ app_server = function(input, output, session) {
     )
   })
 
-  pattern = reactive({
+  pattern = shiny::reactive({
     req(input$pattern)
 
     pattern = ifelse("pattern" %in% input$auto_escape_check_group,
@@ -32,7 +32,7 @@ app_server = function(input, output, session) {
     pattern
   })
 
-  test_str = reactive({
+  test_str = shiny::reactive({
     req(input$test_str)
 
     test_str = ifelse("test_str" %in% input$auto_escape_check_group,
@@ -42,7 +42,7 @@ app_server = function(input, output, session) {
     test_str
   })
 
-  match_list = reactive({
+  match_list = shiny::reactive({
     req(pattern(), test_str(), !bad_slash())
 
     ignore_case_log = "ignore_case" %in% input$additional_params
@@ -54,7 +54,7 @@ app_server = function(input, output, session) {
                         ignore_case_log, global_log, perl_log, fixed_log)
   })
 
-  output$highlight_str = renderUI({
+  output$highlight_str = shiny::renderUI({
     ignore_case_log = "ignore_case" %in% input$additional_params
     global_log      = "global" %in% input$additional_params
     perl_log        = "perl" %in% input$additional_params
@@ -72,9 +72,9 @@ app_server = function(input, output, session) {
     out = gsub("\n", "<br>", out)
 
     if (is.null(out)) {
-      HTML("")
+      shiny::HTML("")
     } else {
-      HTML(
+      shiny::HTML(
         paste0(
           "<font size='1'><i>Note: nested capture groups currently not ",
           "supported for in place highlighting</i></font><div style = ",
@@ -84,7 +84,7 @@ app_server = function(input, output, session) {
     }
   })
 
-  output$match_list_html = renderUI({
+  output$match_list_html = shiny::renderUI({
     if (!bad_slash()) {
       out = safe_html_format_match_list(match_list())
     } else if (bad_slash()) {
@@ -98,7 +98,7 @@ app_server = function(input, output, session) {
       out = HTML(out)
     }
 
-    wellPanel(
+    shiny::wellPanel(
       out,
       style = "background-color: #ffffff; overflow-y:scroll; max-height: 500px"
     )
