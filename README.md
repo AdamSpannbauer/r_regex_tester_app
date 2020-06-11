@@ -3,14 +3,26 @@
 [![Build Status](https://travis-ci.org/AdamSpannbauer/r_regex_tester_app.svg?branch=master)](https://travis-ci.org/AdamSpannbauer/r_regex_tester_app) 
 [![Codecov test coverage](https://codecov.io/gh/AdamSpannbauer/r_regex_tester_app/branch/master/graph/badge.svg)](https://codecov.io/gh/AdamSpannbauer/r_regex_tester_app?branch=master)
 
-## Usage
-
-   * __Online__: visit the application live on [shinyapps.io](https://spannbaueradam.shinyapps.io/r_regex_tester/).
-   * __Local__:  clone this repo and run the shiny app located in the 'r_regex_tester' directory using R Studio.
-
 <p align="center">
    <img src="https://adamspannbauer.github.io/assets/2018/01/regex_full_screenshot.png", width="80%">
 </p>
+
+
+## Usage
+
+* __Online__: visit the application live on [shinyapps.io](https://spannbaueradam.shinyapps.io/r_regex_tester/).
+* __Local__:  
+  * Install from GitHub with devtools
+
+```r
+devtools::install_github("AdamSpannbauer/r_regex_tester_app")
+```
+  
+  * Run app
+  
+```r
+regexTestR::run_app()
+```
 
 ## Features
 
