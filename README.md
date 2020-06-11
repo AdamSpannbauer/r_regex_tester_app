@@ -9,9 +9,7 @@
    * __Local__:  clone this repo and run the shiny app located in the 'r_regex_tester' directory using R Studio.
 
 <p align="center">
-  <kbd>
-   <img src="https://adamspannbauer.github.io/assets/2018/01/regex_full_screenshot.png", width="75%">
-  </kbd>
+   <img src="https://adamspannbauer.github.io/assets/2018/01/regex_full_screenshot.png", width="80%">
 </p>
 
 ## Features
