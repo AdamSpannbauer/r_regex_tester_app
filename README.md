@@ -10,15 +10,19 @@
 
 ## Usage
 
-* __Online__: visit the application live on [shinyapps.io](https://spannbaueradam.shinyapps.io/r_regex_tester/).
-* __Local__:  
-  * Install from GitHub with devtools
+### Online
+
+* Visit the application live on [shinyapps.io](https://spannbaueradam.shinyapps.io/r_regex_tester/).
+
+### Local
+ 
+* Install from GitHub with devtools
 
 ```r
 devtools::install_github("AdamSpannbauer/r_regex_tester_app")
 ```
   
-  * Run app
+* Run app
   
 ```r
 regexTestR::run_app()
