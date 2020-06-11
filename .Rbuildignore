@@ -13,3 +13,4 @@ $run_dev.*
 ^rsconnect$
 ^packrat/
 ^\.Rprofile$
+^codecov\.yml$
