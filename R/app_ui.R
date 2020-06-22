@@ -23,13 +23,15 @@ app_ui = function(request) {
                                                               <hr>"),
                                                  shiny::checkboxGroupInput(
                                                    "auto_escape_check_group",
-                                                   label = "Auto Escape Backslashes",
+                                                   label = shiny::HTML(
+                                                     "<label id='auto_escape_doc_popover'>Auto Escape Backslashes (<u><code>?</code></u>)"
+                                                     ),
                                                    choices = c("Pattern" = "pattern",
                                                                "Test String" = "test_str"),
                                                    selected = "test_str"
                                                    ),  # shiny::checkboxGroupInput
                                                  shinyBS::bsPopover(
-                                                   id = "auto_escape_check_group",
+                                                   id = "auto_escape_doc_popover",
                                                    title = "Bring your own escapes?",
                                                    content = paste0("When working with regex in R, you often need more ",
                                                                     shiny::code("\\\\"), " than you think.  For example, in Rs regex ",
@@ -39,11 +41,11 @@ app_ui = function(request) {
                                                                     "backslashes that R is looking for.  This can lead to some unexpected behavior; ",
                                                                     "for example, a new line in the test string will be converted to the letter ",
                                                                     shiny::code("n"), " (because ", shiny::code("\\\\n"), " -> ", shiny::code("n"), ")."
-                                                                    ),
-                                                   placement = "bottom",
-                                                   trigger = "hover",
+                                                   ),
+                                                   placement = "right",
+                                                   trigger = "click",
                                                    options = list(container = "body")
-                                                   ),  # shinyBS::bsPopover
+                                                 ),  # shinyBS::bsPopover
                                                  shiny::checkboxGroupInput(
                                                    "additional_params",
                                                    label = shiny::tags$label("Additional Parameters"),
