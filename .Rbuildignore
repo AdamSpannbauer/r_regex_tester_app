@@ -14,3 +14,4 @@ $run_dev.*
 ^packrat/
 ^\.Rprofile$
 ^codecov\.yml$
+^cran-comments\.md$
