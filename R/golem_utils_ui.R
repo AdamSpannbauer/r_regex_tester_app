@@ -28,6 +28,12 @@ col_12 <- function(...) {
 
 
 #' @importFrom shiny column
+col_5 <- function(...) {
+  column(5, ...)
+}
+
+
+#' @importFrom shiny column
 col_4 <- function(...) {
   column(4, ...)
 }
