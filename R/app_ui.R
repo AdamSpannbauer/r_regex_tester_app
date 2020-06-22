@@ -23,20 +23,13 @@ app_ui = function(request) {
                                                               <hr>"),
                                                  shiny::checkboxGroupInput(
                                                    "auto_escape_check_group",
-                                                   label = shiny::tags$label(
-                                                     "Auto Escape Backslashes",
-                                                     shinyBS::bsButton("escape_tooltip",
-                                                                       label = "",
-                                                                       icon = shiny::icon("question"),
-                                                                       style = "background-color:transparent",
-                                                                       size = "extra-small"),
-                                                     ),
+                                                   label = "Auto Escape Backslashes",
                                                    choices = c("Pattern" = "pattern",
                                                                "Test String" = "test_str"),
                                                    selected = "test_str"
                                                    ),  # shiny::checkboxGroupInput
                                                  shinyBS::bsPopover(
-                                                   id = "escape_tooltip",
+                                                   id = "auto_escape_check_group",
                                                    title = "Bring your own escapes?",
                                                    content = paste0("When working with regex in R, you often need more ",
                                                                     shiny::code("\\\\"), " than you think.  For example, in Rs regex ",
@@ -47,7 +40,7 @@ app_ui = function(request) {
                                                                     "for example, a new line in the test string will be converted to the letter ",
                                                                     shiny::code("n"), " (because ", shiny::code("\\\\n"), " -> ", shiny::code("n"), ")."
                                                                     ),
-                                                   placement = "right",
+                                                   placement = "bottom",
                                                    trigger = "hover",
                                                    options = list(container = "body")
                                                    ),  # shinyBS::bsPopover
@@ -115,26 +108,23 @@ app_ui = function(request) {
                                                    ),  # fluidRow
                                                  shiny::hr(),
                                                  shiny::fluidRow(
-                                                   col_12(align = "center",
-                                                          shiny::HTML(
-                                                            paste0(
-                                                              "<a ",
-                                                                "href='https://adamspannbauer.github.io/2018/01/16/r-regex-tester-shiny-app/' ",
-                                                                "target='_blank'",
-                                                              ">",
-                                                                "<h4>About the app<h4>",
-                                                              "</a>"
-                                                              )
-                                                            )  # HTML
-                                                          )  # col_12
-                                                   ),  # fluidRow
-                                                 shiny::hr(),
-                                                 shiny::fluidRow(
-                                                   col_12(align = "center",
-                                                          shiny::includeHTML(
-                                                            app_sys(file.path("app/www", buy_me_stuff_btn()))
-                                                            )
-                                                          )  # col_12
+                                                   col_5(align = "center",
+                                                         offset = 1,
+                                                         shiny::actionButton(
+                                                           inputId = "about_app",
+                                                           "About",
+                                                           icon = shiny::icon("file-alt"),
+                                                           onclick = "window.open('https://adamspannbauer.github.io/2018/01/16/r-regex-tester-shiny-app/', '_blank')"
+                                                           )
+                                                         ),  # col
+                                                   col_5(align = "center",
+                                                         shiny::actionButton(
+                                                           inputId = "buy_me_stuff",
+                                                           "Buy me a coffee",
+                                                           icon = shiny::icon("coffee"),
+                                                           onclick = "window.open('https://www.buymeacoffee.com/qp7GmCrco', '_blank')"
+                                                           )
+                                                         )  # col
                                                    )  # fluidRow
                                                  ),  # sidebarPanel
                                                  shiny::mainPanel(
