@@ -24,7 +24,7 @@ app_ui = function(request) {
                                                  shiny::checkboxGroupInput(
                                                    "auto_escape_check_group",
                                                    label = shiny::HTML(
-                                                     "<label id='auto_escape_doc_popover'>Auto Escape Backslashes (<u><code>?</code></u>)"
+                                                     "<label>Auto Escape Backslashes (<span id='auto_escape_doc_popover'><u><code>?</code></u></span>)</label>"
                                                      ),
                                                    choices = c("Pattern" = "pattern",
                                                                "Test String" = "test_str"),
@@ -43,7 +43,7 @@ app_ui = function(request) {
                                                                     shiny::code("n"), " (because ", shiny::code("\\\\n"), " -> ", shiny::code("n"), ")."
                                                    ),
                                                    placement = "right",
-                                                   trigger = "click",
+                                                   trigger = "hover",
                                                    options = list(container = "body")
                                                  ),  # shinyBS::bsPopover
                                                  shiny::checkboxGroupInput(
