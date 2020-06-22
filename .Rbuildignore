@@ -15,3 +15,4 @@ $run_dev.*
 ^\.Rprofile$
 ^codecov\.yml$
 ^cran-comments\.md$
+^CRAN-RELEASE$
