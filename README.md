@@ -1,7 +1,6 @@
 # R Regex Tester Shiny App <img src='inst/app/www/logo.png' width='75px' align='right'>
 
-[![Build Status](https://travis-ci.org/AdamSpannbauer/r_regex_tester_app.svg?branch=master)](https://travis-ci.org/AdamSpannbauer/r_regex_tester_app) 
-[![Codecov test coverage](https://codecov.io/gh/AdamSpannbauer/r_regex_tester_app/branch/master/graph/badge.svg)](https://codecov.io/gh/AdamSpannbauer/r_regex_tester_app?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/regexTestR)](https://CRAN.R-project.org/package=regexTestR) [![Last Commit](https://img.shields.io/github/last-commit/AdamSpannbauer/r_regex_tester_app.svg)](https://github.com/AdamSpannbauer/r_regex_tester_app/commits/master)
+[![Build Status](https://travis-ci.org/AdamSpannbauer/r_regex_tester_app.svg?branch=master)](https://travis-ci.org/AdamSpannbauer/r_regex_tester_app) [![Codecov test coverage](https://codecov.io/gh/AdamSpannbauer/r_regex_tester_app/branch/master/graph/badge.svg)](https://codecov.io/gh/AdamSpannbauer/r_regex_tester_app?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/regexTestR)](https://CRAN.R-project.org/package=regexTestR) [![Last Commit](https://img.shields.io/github/last-commit/AdamSpannbauer/r_regex_tester_app.svg)](https://github.com/AdamSpannbauer/r_regex_tester_app/commits/master)
 
 <p align="center">
   <a href="https://spannbaueradam.shinyapps.io/r_regex_tester/" target=”_blank”>
