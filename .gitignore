@@ -1,5 +1,6 @@
 # favicon original
 *.key
+CRAN-RELEASE
 
 # History files
 .Rhistory
