@@ -3,6 +3,9 @@
 [![Build Status](https://travis-ci.org/AdamSpannbauer/r_regex_tester_app.svg?branch=master)](https://travis-ci.org/AdamSpannbauer/r_regex_tester_app) 
 [![Codecov test coverage](https://codecov.io/gh/AdamSpannbauer/r_regex_tester_app/branch/master/graph/badge.svg)](https://codecov.io/gh/AdamSpannbauer/r_regex_tester_app?branch=master)
 
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/regexTestR)](https://CRAN.R-project.org/package=regexTestR) [![Last Commit](https://img.shields.io/github/last-commit/AdamSpannbauer/r_regex_tester_app.svg)](https://github.com/AdamSpannbauer/r_regex_tester_app/commits/master)
+
+
 <p align="center">
    <img src="https://adamspannbauer.github.io/assets/2018/01/regex_full_screenshot.png", width="80%">
 </p>
