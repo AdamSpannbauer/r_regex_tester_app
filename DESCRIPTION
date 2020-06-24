@@ -1,5 +1,5 @@
 Package: regexTestR
-Title: A Shiny app to test regex in an R environment
+Title: A Shiny App to Test Regex in an R Environment
 Version: 0.1.0
 Authors@R: person('Adam', 'Spannbauer', email = 'spannbaueradam@gmail.com', role = c('cre', 'aut'))
 Description: A Shiny app to aid in writing, explaining, and debugging regex in an R environment.
