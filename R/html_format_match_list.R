@@ -6,6 +6,7 @@ html_format_match_list = function(match_list, color_palette = "Set3") {
   #'
   #' @return HTML string to be rendered with shiny::HTML()
   #' @keywords internal
+  #' @noRd
 
   suppressWarnings({
     colors = RColorBrewer::brewer.pal(100, color_palette)

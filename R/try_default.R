@@ -7,11 +7,13 @@ try_default = function(fun, default = NULL, silent = FALSE) {
   #'
   #' @return either output of fun or default value in case of error
   #' @keywords internal
-  #'
-  #' @examples
-  #' # add = function(a, b) a + b
-  #' # default_add = try_default(add)
-  #' # null_output = default_add(1, 'a')
+  #' @noRd
+
+  # CRAN doesn't like examples on non-exported functions
+  # @examples
+  # # add = function(a, b) a + b
+  # # default_add = try_default(add)
+  # # null_output = default_add(1, 'a')
 
   function(...) {
     out = default

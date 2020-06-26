@@ -16,6 +16,7 @@ mgsub = function(pattern, replacement, text.var, fixed = TRUE, ...) {
   #'
   #' @return text.var with substitutions applied
   #' @keywords internal
+  #' @noRd
 
   if (length(replacement) == 1) {
     replacement = rep(replacement, length(pattern))

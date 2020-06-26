@@ -6,10 +6,12 @@ split_vec = function(vec, splits) {
   #'
   #' @return list of vectors
   #' @keywords internal
-  #'
-  #' @examples
-  #' # split_vec(1:4, 3)
-  #' # list(`0` = 1:2, `1` = 3:4)
+  #' @noRd
+
+  # CRAN doesn't like examples on non-exported functions
+  # @examples
+  # # split_vec(1:4, 3)
+  # # list(`0` = 1:2, `1` = 3:4)
   split(vec, cumsum(seq_along(vec) %in% (splits)))
 }
 
@@ -23,6 +25,7 @@ regexplain = function(regx) {
   #'
   #' @return a dataframe with columns c("regex", "explanation")
   #' @keywords internal
+  #' @noRd
 
   base_url = "http://rick.measham.id.au/paste/explain?regex="
 

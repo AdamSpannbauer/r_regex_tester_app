@@ -13,6 +13,7 @@ highlight_test_str = function(str, pattern, ignore_case = TRUE,
   #'
   #' @return HTML string to be rendered with shiny::HTML()
   #' @keywords internal
+  #' @noRd
   #' @importFrom data.table := .SD
 
   # Satisfy global variable check issues w/o globalVariables

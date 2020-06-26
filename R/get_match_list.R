@@ -12,15 +12,17 @@ get_match_list = function(str, pattern, ignore_case=TRUE,
   #' @return a list with names as matched text and elements as
   #'         character vectors of matched text
   #' @keywords internal
+  #' @noRd
   #' @importFrom data.table :=
-  #'
-  #' @examples
-  #' # get_match_list('abc aaa abc acdc', 'a(.)(.)')
-  #'
-  #' # list(abc = c("b", "c"),
-  #' #      aaa = c("a", "a"),
-  #' #      abc = c("b", "c"),
-  #' #      acd = c("c", "d"))
+
+  # CRAN doesn't like examples on non-exported functions
+  # @examples
+  # # get_match_list('abc aaa abc acdc', 'a(.)(.)')
+  #
+  # # list(abc = c("b", "c"),
+  # #      aaa = c("a", "a"),
+  # #      abc = c("b", "c"),
+  # #      acd = c("c", "d"))
 
   # Satisfy global variable check issues w/o globalVariables
   # These are col names used in NSE data.table expressions

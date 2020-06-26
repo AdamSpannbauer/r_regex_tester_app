@@ -6,15 +6,18 @@ half_slashes = function(str, exclude = character(0)) {
   #'
   #' @return A version of the input string with half of the escaping chars
   #' @keywords internal
+  #' @noRd
   #' @importFrom data.table :=
   #'
   #' @details An exception will be thrown if removing slashes leads to a parsing
   #'         error.  For example, "\\" will be converted to "\" which is not
   #'         a valid string.
   #'
-  #' @examples
-  #' # half_slashes("\\\\")
-  #' # [1] "\\"
+
+  # CRAN doesn't like examples on non-exported functions
+  # @examples
+  # # half_slashes("\\\\")
+  # # [1] "\\"
 
   # Satisfy global variable check issues w/o globalVariables
   # These are col names used in NSE data.table expressions
