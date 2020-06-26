@@ -14,11 +14,6 @@ half_slashes = function(str, exclude = character(0)) {
   #'         a valid string.
   #'
 
-  # CRAN doesn't like examples on non-exported functions
-  # @examples
-  # # half_slashes("\\\\")
-  # # [1] "\\"
-
   # Satisfy global variable check issues w/o globalVariables
   # These are col names used in NSE data.table expressions
   half_slash = NULL

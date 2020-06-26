@@ -15,15 +15,6 @@ get_match_list = function(str, pattern, ignore_case=TRUE,
   #' @noRd
   #' @importFrom data.table :=
 
-  # CRAN doesn't like examples on non-exported functions
-  # @examples
-  # # get_match_list('abc aaa abc acdc', 'a(.)(.)')
-  #
-  # # list(abc = c("b", "c"),
-  # #      aaa = c("a", "a"),
-  # #      abc = c("b", "c"),
-  # #      acd = c("c", "d"))
-
   # Satisfy global variable check issues w/o globalVariables
   # These are col names used in NSE data.table expressions
   match_ind = NULL

@@ -9,12 +9,6 @@ try_default = function(fun, default = NULL, silent = FALSE) {
   #' @keywords internal
   #' @noRd
 
-  # CRAN doesn't like examples on non-exported functions
-  # @examples
-  # # add = function(a, b) a + b
-  # # default_add = try_default(add)
-  # # null_output = default_add(1, 'a')
-
   function(...) {
     out = default
     try({
