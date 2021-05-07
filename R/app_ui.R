@@ -110,7 +110,7 @@ app_ui = function(request) {
                                                    ),  # fluidRow
                                                  shiny::hr(),
                                                  shiny::fluidRow(
-                                                   col_5(align = "center",
+                                                   col_10(align = "center",
                                                          offset = 1,
                                                          shiny::actionButton(
                                                            inputId = "about_app",
@@ -118,15 +118,15 @@ app_ui = function(request) {
                                                            icon = shiny::icon("file-alt"),
                                                            onclick = "window.open('https://adamspannbauer.github.io/2018/01/16/r-regex-tester-shiny-app/', '_blank')"
                                                            )
-                                                         ),  # col
-                                                   col_5(align = "center",
-                                                         shiny::actionButton(
-                                                           inputId = "buy_me_stuff",
-                                                           "Buy me a coffee",
-                                                           icon = shiny::icon("coffee"),
-                                                           onclick = "window.open('https://www.buymeacoffee.com/qp7GmCrco', '_blank')"
-                                                           )
-                                                         )  # col
+                                                         ) #,  # col
+                                                   # col_5(align = "center",
+                                                   #       shiny::actionButton(
+                                                   #         inputId = "buy_me_stuff",
+                                                   #         "Buy me a coffee",
+                                                   #         icon = shiny::icon("coffee"),
+                                                   #         onclick = "window.open('https://www.buymeacoffee.com/qp7GmCrco', '_blank')"
+                                                   #         )
+                                                   #       )  # col
                                                    )  # fluidRow
                                                  ),  # sidebarPanel
                                                  shiny::mainPanel(
