@@ -210,6 +210,7 @@ golem_add_external_resources <- function() {
   )
 
   shiny::tags$head(
+    shiny::includeHTML(app_sys("app/www/ga_tag.html")),
     golem::favicon(ext = "png"),
     golem::bundle_resources(
       path = app_sys("app/www"),
