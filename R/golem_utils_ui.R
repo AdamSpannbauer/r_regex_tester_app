@@ -26,6 +26,13 @@ col_12 <- function(...) {
 
 #' @importFrom shiny column
 #' @noRd
+col_10 <- function(...) {
+  column(10, ...)
+}
+
+
+#' @importFrom shiny column
+#' @noRd
 col_5 <- function(...) {
   column(5, ...)
 }

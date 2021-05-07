@@ -110,7 +110,7 @@ app_ui = function(request) {
                                                    ),  # fluidRow
                                                  shiny::hr(),
                                                  shiny::fluidRow(
-                                                   col_5(align = "center",
+                                                   col_10(align = "center",
                                                          offset = 1,
                                                          shiny::actionButton(
                                                            inputId = "about_app",
@@ -118,22 +118,19 @@ app_ui = function(request) {
                                                            icon = shiny::icon("file-alt"),
                                                            onclick = "window.open('https://adamspannbauer.github.io/2018/01/16/r-regex-tester-shiny-app/', '_blank')"
                                                            )
-                                                         ),  # col
-                                                   col_5(align = "center",
-                                                         shiny::actionButton(
-                                                           inputId = "buy_me_stuff",
-                                                           "Buy me a coffee",
-                                                           icon = shiny::icon("coffee"),
-                                                           onclick = "window.open('https://www.buymeacoffee.com/qp7GmCrco', '_blank')"
-                                                           )
-                                                         )  # col
+                                                         )
                                                    )  # fluidRow
                                                  ),  # sidebarPanel
                                                  shiny::mainPanel(
                                                    shiny::fluidRow(
                                                      col_12(align = "left",
                                                             shiny::wellPanel(style = "background-color: #f2f2f2;",
-                                                                             shiny::HTML("<strong><font size='5'>Input</font></strong><hr>"),
+                                                                             shiny::HTML("<strong><font size='5'>Input</font></strong>"),
+                                                                             shiny::div(
+                                                                               style = "display:inline-block; float:right",
+                                                                               shiny::actionButton("save_button", "Save", icon = shiny::icon("save"))
+                                                                             ),
+                                                                             shiny::hr(),
                                                                              shiny::textInput("pattern",
                                                                                               label = "Matching Pattern",
                                                                                               value = "t(es)(t)",
@@ -211,6 +208,22 @@ golem_add_external_resources <- function() {
 
   shiny::tags$head(
     shiny::includeHTML(app_sys("app/www/ga_tag.html")),
+    shiny::tags$script(
+      "
+      function copySaveUrlToClipboard() {
+        let range = document.createRange();
+        let selection = window.getSelection();
+        let urlElement = document.querySelector('#save_url_copy');
+
+        range.selectNodeContents(urlElement);
+
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        document.execCommand('copy');
+      }
+      "
+    ),
     golem::favicon(ext = "png"),
     golem::bundle_resources(
       path = app_sys("app/www"),
