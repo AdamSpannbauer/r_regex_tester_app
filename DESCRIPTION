@@ -1,6 +1,6 @@
 Package: regexTestR
 Title: A 'Shiny' App to Test Regular Expressions in an R Environment
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person('Adam', 'Spannbauer', email = 'spannbaueradam@gmail.com', role = c('cre', 'aut'))
 Description: A 'Shiny' app to aid in writing, explaining, and debugging regular expressions in an R environment.
 License: MIT + file LICENSE
