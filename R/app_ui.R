@@ -118,15 +118,7 @@ app_ui = function(request) {
                                                            icon = shiny::icon("file-alt"),
                                                            onclick = "window.open('https://adamspannbauer.github.io/2018/01/16/r-regex-tester-shiny-app/', '_blank')"
                                                            )
-                                                         ) #,  # col
-                                                   # col_5(align = "center",
-                                                   #       shiny::actionButton(
-                                                   #         inputId = "buy_me_stuff",
-                                                   #         "Buy me a coffee",
-                                                   #         icon = shiny::icon("coffee"),
-                                                   #         onclick = "window.open('https://www.buymeacoffee.com/qp7GmCrco', '_blank')"
-                                                   #         )
-                                                   #       )  # col
+                                                         )
                                                    )  # fluidRow
                                                  ),  # sidebarPanel
                                                  shiny::mainPanel(
@@ -136,7 +128,7 @@ app_ui = function(request) {
                                                                              shiny::HTML("<strong><font size='5'>Input</font></strong>"),
                                                                              shiny::div(
                                                                                style = "display:inline-block; float:right",
-                                                                               shiny::actionButton("save_button", "Save", icon=shiny::icon("save"))
+                                                                               shiny::actionButton("save_button", "Save", icon = shiny::icon("save"))
                                                                              ),
                                                                              shiny::hr(),
                                                                              shiny::textInput("pattern",
