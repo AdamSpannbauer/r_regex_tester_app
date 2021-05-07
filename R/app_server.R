@@ -9,6 +9,32 @@ app_server = function(input, output, session) {
     parse_url_and_update_inputs(session)
   })
 
+  shiny::observeEvent(input$save_button, {
+    save_url = build_save_url(session, input)
+
+    shiny::showModal(
+      shiny::modalDialog(
+        title = "Saved at this URL:",
+        shiny::div(
+          shiny::tags$p(
+            id = "save_url_copy",
+            save_url,
+            style = "white-space: nowrap; font-family: monospace;"
+          ),
+          style = "background-color: #EBEBEB; overflow-x: scroll; border-radius: 5px; padding: 5px; padding-top: 10px; border-style: solid; border-width: thin;"
+        ),
+        easyClose = TRUE,
+        footer = shiny::actionButton(
+          "copy_save_url_button",
+          "Copy URL",
+          icon = shiny::icon("clipboard"),
+          onclick = "copySaveUrlToClipboard()",
+          "data-dismiss" = "modal"
+        )
+      )
+    )
+  })
+
   safe_half_slashes = try_default(half_slashes)
   safe_get_match_list = try_default(get_match_list)
   safe_html_format_match_list = try_default(html_format_match_list)
