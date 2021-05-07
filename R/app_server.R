@@ -5,6 +5,10 @@
 #' @import shiny
 #' @noRd
 app_server = function(input, output, session) {
+  shiny::observe({
+    parse_url_and_update_inputs(session)
+  })
+
   safe_half_slashes = try_default(half_slashes)
   safe_get_match_list = try_default(get_match_list)
   safe_html_format_match_list = try_default(html_format_match_list)
