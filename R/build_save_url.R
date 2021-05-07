@@ -9,12 +9,14 @@ build_save_url = function(session, input) {
 
   shiny::updateQueryString(query_string, mode = "replace")
 
-  full_url = paste0(
-    session$clientData$url_protocol,
-    "//",
+  port = session$clientData$url_port
+  port = if (shiny::isTruthy(port)) paste0(":", port) else ""
+
+  full_url = sprintf(
+    "%s%s%s%s",
     session$clientData$url_hostname,
-    ":",
-    session$clientData$url_port,
+    port,
+    session$clientData$url_pathname,
     query_string
   )
 
