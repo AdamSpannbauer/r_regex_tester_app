@@ -35,7 +35,7 @@ app_server = function(input, output, session) {
             shiny::actionButton(
               "dismiss_modal",
               "Close",
-              icon=shiny::icon("close"),
+              icon = shiny::icon("close"),
               "data-dismiss" = "modal"
               )
             )
