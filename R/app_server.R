@@ -24,13 +24,22 @@ app_server = function(input, output, session) {
           style = "background-color: #EBEBEB; overflow-x: scroll; border-radius: 5px; padding: 5px; padding-top: 10px; border-style: solid; border-width: thin;"
         ),
         easyClose = TRUE,
-        footer = shiny::actionButton(
-          "copy_save_url_button",
-          "Copy URL",
-          icon = shiny::icon("clipboard"),
-          onclick = "copySaveUrlToClipboard()",
-          "data-dismiss" = "modal"
-        )
+        footer = shiny::div(
+          shiny::fluidRow(
+            shiny::actionButton(
+              "copy_save_url_button",
+              "Copy URL",
+              icon = shiny::icon("clipboard"),
+              onclick = "copySaveUrlToClipboard()"
+              ),
+            shiny::actionButton(
+              "dismiss_modal",
+              "Close",
+              icon=shiny::icon("close"),
+              "data-dismiss" = "modal"
+              )
+            )
+          )
       )
     )
   })
@@ -133,6 +142,10 @@ app_server = function(input, output, session) {
       style = "background-color: #ffffff; overflow-y:scroll; max-height: 500px"
     )
   })
+
+  output$r_code_snippet = shiny::renderText(
+    build_r_snippet(session, input, pattern())
+    )
 
   output$explaination_dt = DT::renderDataTable({
     if (bad_slash()) {
