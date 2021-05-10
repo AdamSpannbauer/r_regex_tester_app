@@ -143,7 +143,7 @@ app_ui = function(request) {
                                                                                                   width = "100%")
                                                                              ),  # wellPanel
                                                             shinyBS::bsCollapse(
-                                                              id = "collapseExample",
+                                                              id = "explanation_collapse",
                                                               shinyBS::bsCollapsePanel(
                                                                 shiny::HTML("<strong><font size='5'>Reg-Explanation</font></strong>"),
                                                                 shiny::HTML('explanation provided by <a href="http://rick.measham.id.au/paste/explain", target="_blank">rick.measham.id.au</a><hr>'),
@@ -151,6 +151,14 @@ app_ui = function(request) {
                                                                 style = "default"
                                                                 )  # bsCollapsePanel
                                                               ),  # bsCollapse
+                                                            shinyBS::bsCollapse(
+                                                              id = "r_snippet_collapse",
+                                                              shinyBS::bsCollapsePanel(
+                                                                shiny::HTML("<strong><font size='5'>R Code Snippets</font></strong>"),
+                                                                shiny::verbatimTextOutput("r_code_snippet"),
+                                                                style = "default"
+                                                              )  # bsCollapsePanel
+                                                            ),  # bsCollapse
                                                             shiny::wellPanel(style = "background-color: #f2f2f2;",
                                                                              shiny::HTML("<strong><font size='5'>Results</font></strong><hr>"),
                                                                              shiny::uiOutput("highlight_str"),
