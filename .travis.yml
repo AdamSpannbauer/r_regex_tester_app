@@ -4,6 +4,9 @@ cache: packages
 r:
   - release
   - devel
+  
+env:
+  GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
 r_github_packages:
   - jimhester/lintr
