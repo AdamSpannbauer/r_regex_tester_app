@@ -5,8 +5,9 @@ r:
   - release
   - devel
 
-r_github_packages:
-  - jimhester/lintr
+r_packages:
+  - lintr
+  - covr
 
 after_success:
   - Rscript -e 'covr::codecov(function_exclusions = c("app_server", "run_app", "app_config", "get_golem_config"))'
