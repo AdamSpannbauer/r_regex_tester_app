@@ -137,13 +137,16 @@ highlight_test_str = function(str, pattern, ignore_case = TRUE,
   }
 
   txt = str
-  buffer = 0
+
+  # modifying string in place using indices
+  # work back to front to avoid disprupting indices
+  match_df = data.table::data.table(match_df)
+  match_df = match_df[order(match_ind, capture_start, decreasing = TRUE), ]
   for (i in seq_len(nrow(match_df))) {
     stringr::str_sub(txt,
-                     match_df$match_start[i] + buffer,
-                     match_df$match_end[i] + buffer) = "%s"
+                     match_df$match_start[i],
+                     match_df$match_end[i]) = "%s"
     txt = sprintf(txt, match_df$replacements[i])
-    buffer = buffer + nchar(match_df$replacements[i]) - nchar(match_df$match[i])
   }
 
   txt
