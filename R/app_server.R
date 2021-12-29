@@ -3,6 +3,8 @@
 #' @param input,output,session Internal parameters for {shiny}.
 #'     DO NOT REMOVE.
 #' @import shiny
+#' @importFrom utils URLdecode
+#' @importFrom utils URLencode
 #' @noRd
 app_server = function(input, output, session) {
   shiny::observe({
