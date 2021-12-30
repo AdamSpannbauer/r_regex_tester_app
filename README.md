@@ -18,9 +18,13 @@
 
 ### Local
 
-* Install from GitHub with devtools
+* Install package
 
 ```r
+# Option 1: install from CRAN
+install.packages("regexTestR")
+
+# Option 2: install dev version from github
 devtools::install_github("AdamSpannbauer/r_regex_tester_app")
 ```
 
