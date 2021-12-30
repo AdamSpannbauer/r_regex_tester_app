@@ -124,7 +124,7 @@ highlight_test_str = function(str, pattern, ignore_case = TRUE,
     # modifying string in place using indices
     # work back to front to avoid disrupting indices
     match_df = data.table::data.table(match_df)
-    match_df = match_df[order(match_ind, capture_start, decreasing = TRUE), ]
+    match_df = match_df[order(match_ind, decreasing = TRUE), ]
   } else {
     match_end = matches_raw + attr(matches_raw, "match.length") - 1
 
