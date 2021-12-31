@@ -1,0 +1,13 @@
+name: r_regex_tester_app
+title: r_regex_tester_app
+username:
+account: spannbaueradam
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5382006
+bundleId: 5421030
+url: https://spannbaueradam.shinyapps.io/r_regex_tester_app/
+when: 1640904282.24599
+lastSyncTime: 1640904282.24601
+asMultiple: FALSE
+asStatic: FALSE
