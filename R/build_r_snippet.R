@@ -66,6 +66,5 @@ grep_args_str,
 gexpr_func, grep_args_str
   )
 
-  cat(snippet)
   return(snippet)
 }

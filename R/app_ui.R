@@ -155,7 +155,7 @@ app_ui = function(request) {
                                                               id = "r_snippet_collapse",
                                                               shinyBS::bsCollapsePanel(
                                                                 shiny::HTML("<strong><font size='5'>R Code Snippets</font></strong>"),
-                                                                shiny::verbatimTextOutput("r_code_snippet"),
+                                                                codeOutput("r_code_snippet"),
                                                                 style = "default"
                                                               )  # bsCollapsePanel
                                                             ),  # bsCollapse
@@ -216,6 +216,8 @@ golem_add_external_resources <- function() {
 
   shiny::tags$head(
     shiny::includeHTML(app_sys("app/www/ga_tag.html")),
+    shiny::tags$link(rel = "stylesheet", href = "www/prism.css"),
+    shiny::tags$script(src = "www/prism.js", type = "text/javascript"),
     shiny::tags$script(
       "
       function copySaveUrlToClipboard() {

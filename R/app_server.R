@@ -143,9 +143,9 @@ app_server = function(input, output, session) {
     )
   })
 
-  output$r_code_snippet = shiny::renderText(
+  output$r_code_snippet = renderCode(
     build_r_snippet(session, input, pattern())
-    )
+  )
 
   output$explaination_dt = DT::renderDataTable({
     if (bad_slash()) {
