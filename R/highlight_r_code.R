@@ -1,13 +1,13 @@
 # Source: https://github.com/statistikat/codeModules/blob/master/R/renderCode.R
 
-rCodeContainer <- function(...) {
+r_code_container <- function(...) {
   code <- shiny::HTML(
     as.character(shiny::tags$code(class = "language-r", ...))
   )
   shiny::div(shiny::pre(code))
 }
 
-injectHighlightHandler <- function() {
+inject_highlight_handler <- function() {
   code <- "
     Shiny.addCustomMessageHandler(
       'highlight-code',
@@ -26,12 +26,12 @@ injectHighlightHandler <- function() {
   tags$script(code)
 }
 
-includeHighlightJs <- function() {
+include_highlight_js <- function() {
   resources <- system.file("www/shared/highlight", package = "shiny")
   shiny::singleton(list(
     shiny::includeScript(file.path(resources, "highlight.pack.js")),
     shiny::includeCSS(file.path(resources, "rstudio.css")),
-    injectHighlightHandler()
+    inject_highlight_handler()
   ))
 }
 
@@ -43,19 +43,19 @@ includeHighlightJs <- function() {
 #'       width = "1000px", height = "200px",
 #'       paste("f <- function(x) {2*x + 3}", "f(1)", "#> 5", sep = "\n")
 #'     ),
-#'     codeOutput("code_out")
+#'     code_output("code_out")
 #'   ),
 #'   function(input, output, session) {
-#'     output$code_out <- renderCode({
+#'     output$code_out <- render_code({
 #'       paste(input$code_in)
 #'     })
 #'   }
 #' )
 #' }
-renderCode <- function(expr, env = parent.frame(), quoted = FALSE,
-                       outputArgs = list(), delay = 100) {
+render_code <- function(expr, env = parent.frame(), quoted = FALSE,
+                        output_args = list(), delay = 100) {
   func <- shiny::exprToFunction(expr, env, quoted)
-  renderFunc <- function(shinysession, name, ...) {
+  render_func <- function(shinysession, name, ...) {
     value <- func()
     for (d in delay) {
       shinysession$sendCustomMessage(
@@ -65,12 +65,12 @@ renderCode <- function(expr, env = parent.frame(), quoted = FALSE,
     }
     return(paste(utils::capture.output(cat(value)), collapse = "\n"))
   }
-  shiny::markRenderFunction(codeOutput, renderFunc, outputArgs = outputArgs)
+  shiny::markRenderFunction(code_output, render_func, outputArgs = output_args)
 }
 
-codeOutput <- function(outputId) {
+code_output <- function(output_id) {
   shiny::tagList(
-    includeHighlightJs(),
-    shiny::uiOutput(outputId, container = rCodeContainer)
+    include_highlight_js(),
+    shiny::uiOutput(output_id, container = r_code_container)
   )
 }

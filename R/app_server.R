@@ -143,7 +143,7 @@ app_server = function(input, output, session) {
     )
   })
 
-  output$r_code_snippet = renderCode(
+  output$r_code_snippet = render_code(
     build_r_snippet(session, input, pattern())
   )
 

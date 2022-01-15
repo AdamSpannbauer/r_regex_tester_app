@@ -155,7 +155,7 @@ app_ui = function(request) {
                                                               id = "r_snippet_collapse",
                                                               shinyBS::bsCollapsePanel(
                                                                 shiny::HTML("<strong><font size='5'>R Code Snippets</font></strong>"),
-                                                                codeOutput("r_code_snippet"),
+                                                                code_output("r_code_snippet"),
                                                                 style = "default"
                                                               )  # bsCollapsePanel
                                                             ),  # bsCollapse
