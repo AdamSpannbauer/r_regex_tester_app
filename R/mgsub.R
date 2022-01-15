@@ -1,4 +1,4 @@
-mgsub = function(pattern, replacement, text.var, fixed = TRUE, ...) {
+mgsub <- function(pattern, replacement, text.var, fixed = TRUE, ...) {
   #' Multi gsub
   #'
   #' @description I wanted qdap::mgsub() w/o having to have full qdap package.
@@ -19,11 +19,11 @@ mgsub = function(pattern, replacement, text.var, fixed = TRUE, ...) {
   #' @noRd
 
   if (length(replacement) == 1) {
-    replacement = rep(replacement, length(pattern))
+    replacement <- rep(replacement, length(pattern))
   }
 
   for (i in seq_along(pattern)) {
-    text.var = gsub(pattern[i], replacement[i], text.var, fixed = fixed, ...)
+    text.var <- gsub(pattern[i], replacement[i], text.var, fixed = fixed, ...)
   }
 
   text.var
