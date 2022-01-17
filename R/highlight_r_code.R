@@ -35,23 +35,6 @@ include_highlight_js <- function() {
   ))
 }
 
-#' Render code with syntax highlighting
-#'
-#' shinyApp(
-#'   fluidPage(
-#'     textAreaInput("code_in", NULL,
-#'       width = "1000px", height = "200px",
-#'       paste("f <- function(x) {2*x + 3}", "f(1)", "#> 5", sep = "\n")
-#'     ),
-#'     code_output("code_out")
-#'   ),
-#'   function(input, output, session) {
-#'     output$code_out <- render_code({
-#'       paste(input$code_in)
-#'     })
-#'   }
-#' )
-#' }
 render_code <- function(expr, env = parent.frame(), quoted = FALSE,
                         output_args = list(), delay = 100) {
   func <- shiny::exprToFunction(expr, env, quoted)
