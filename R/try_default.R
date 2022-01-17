@@ -1,4 +1,4 @@
-try_default = function(fun, default = NULL, silent = FALSE) {
+try_default <- function(fun, default = NULL, silent = FALSE) {
   #' Create a 'safe' version of a function with a default return value
   #'
   #' @param fun function to add try logic to
@@ -10,10 +10,13 @@ try_default = function(fun, default = NULL, silent = FALSE) {
   #' @noRd
 
   function(...) {
-    out = default
-    try({
-      out = fun(...)
-    }, silent = silent)
+    out <- default
+    try(
+      {
+        out <- fun(...)
+      },
+      silent = silent
+    )
 
     return(out)
   }

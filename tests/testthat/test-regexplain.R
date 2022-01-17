@@ -2,8 +2,8 @@ context("regexlpain")
 
 
 test_that("split_vec", {
-  test_result = regexTestR:::split_vec(1:10, c(2, 5, 8))
-  expected = list(
+  test_result <- regexTestR:::split_vec(1:10, c(2, 5, 8))
+  expected <- list(
     `0` = 1L,
     `1` = 2:4,
     `2` = 5:7,
@@ -15,9 +15,9 @@ test_that("split_vec", {
 
 
 test_that("regexlpain basic", {
-  test_result = regexTestR:::regexplain("[[:blank:]][^[:blank:]]\\s+")
+  test_result <- regexTestR:::regexplain("[[:blank:]][^[:blank:]]\\s+")
 
-  expected = data.table::data.table(
+  expected <- data.table::data.table(
     regex = c(
       "[[:blank:]]",
       "[^[:blank:]]",

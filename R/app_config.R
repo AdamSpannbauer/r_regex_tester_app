@@ -4,7 +4,7 @@
 #'     point to inside the current package.
 #'
 #' @noRd
-app_sys = function(...) {
+app_sys <- function(...) {
   system.file(..., package = "regexTestR")
 }
 
@@ -18,11 +18,9 @@ app_sys = function(...) {
 #' @importFrom config get
 #'
 #' @noRd
-get_golem_config = function(
-  value,
-  config = Sys.getenv("R_CONFIG_ACTIVE", "default"),
-  use_parent = TRUE
-) {
+get_golem_config <- function(value,
+                             config = Sys.getenv("R_CONFIG_ACTIVE", "default"),
+                             use_parent = TRUE) {
   config::get(
     value = value,
     config = config,
