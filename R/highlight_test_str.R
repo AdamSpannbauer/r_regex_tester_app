@@ -159,7 +159,7 @@ highlight_test_str <- function(str, pattern, ignore_case = TRUE,
 
     # modifying string in place using indices
     # work back to front to avoid disrupting indices
-    match_df = match_df[order(match_ind, decreasing = TRUE), ]
+    match_df <- match_df[order(match_ind, decreasing = TRUE), ]
   }
 
   txt <- str
