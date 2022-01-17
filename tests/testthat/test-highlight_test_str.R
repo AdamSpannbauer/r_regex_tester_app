@@ -15,8 +15,8 @@ test_that("highlight_test_str basic", {
 
 
 test_that("welcome screen example", {
-  test_result = regexTestR:::highlight_test_str("This is a test string for testing regex.", "t(es)(t)")
-  expected = paste0(
+  test_result <- regexTestR:::highlight_test_str("This is a test string for testing regex.", "t(es)(t)")
+  expected <- paste0(
     "This is a <span style='background-color:#8DD3C7'>t",
     "<span style='background-color:#FFFFB3'>es</span>",
     "<span style='background-color:#BEBADA'>t</span></span>",
