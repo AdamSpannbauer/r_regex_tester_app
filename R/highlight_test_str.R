@@ -137,6 +137,11 @@ highlight_test_str <- function(str, pattern, ignore_case = TRUE,
     cols = c(match_ind, match_start, match_end)
     )
     match_df <- unique(match_df)
+
+    # modifying string in place using indices
+    # work back to front to avoid disrupting indices
+    match_df <- data.table::data.table(match_df)
+    match_df <- match_df[order(match_ind, decreasing = TRUE), ]
   } else {
     match_end <- matches_raw + attr(matches_raw, "match.length") - 1
 
@@ -154,15 +159,13 @@ highlight_test_str <- function(str, pattern, ignore_case = TRUE,
   }
 
   txt <- str
-  buffer <- 0
   for (i in seq_len(nrow(match_df))) {
     stringr::str_sub(
       txt,
-      match_df$match_start[i] + buffer,
-      match_df$match_end[i] + buffer
+      match_df$match_start[i],
+      match_df$match_end[i]
     ) <- "%s"
     txt <- sprintf(txt, match_df$replacements[i])
-    buffer <- buffer + nchar(match_df$replacements[i]) - nchar(match_df$match[i])
   }
 
   txt
