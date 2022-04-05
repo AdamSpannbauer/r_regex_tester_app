@@ -50,3 +50,13 @@ half_slashes <- function(str, exclude = character(0)) {
 
   eval(parse(text = halfed_deparse))
 }
+
+
+double_slashes <- function(str) {
+  #' Given a string, double the number of escaping backslashes
+  #'
+  #' @param str A string to double backslashes in
+  #' @return A version of the input string with doubled escaping chars
+
+  gsub("\\\\", "\\\\\\\\", str)
+}
