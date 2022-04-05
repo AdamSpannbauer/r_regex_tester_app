@@ -60,7 +60,7 @@ match_info_list = %s(
   %s
 )
 ",
-    pattern,
+    double_slashes(pattern),
     sub_func, sub_args_str,
     grep_args_str,
     gexpr_func, grep_args_str
