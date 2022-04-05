@@ -57,6 +57,8 @@ double_slashes <- function(str) {
   #'
   #' @param str A string to double backslashes in
   #' @return A version of the input string with doubled escaping chars
-
+  #'
+  #' @keywords internal
+  #' @noRd
   gsub("\\\\", "\\\\\\\\", str)
 }
