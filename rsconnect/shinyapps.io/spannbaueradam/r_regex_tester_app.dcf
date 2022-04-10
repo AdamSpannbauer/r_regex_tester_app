@@ -5,9 +5,9 @@ account: spannbaueradam
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 5382006
-bundleId: 5477699
+bundleId: 5783837
 url: https://spannbaueradam.shinyapps.io/r_regex_tester_app/
-when: 1642436623.25757
-lastSyncTime: 1642436623.25762
+when: 1649601709.33513
+lastSyncTime: 1649601709.33515
 asMultiple: FALSE
 asStatic: FALSE
